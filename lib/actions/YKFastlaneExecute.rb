@@ -1,9 +1,9 @@
 require 'ykfastlane'
 require 'rails'
 
-$SCRIPT_PATH = Pathname.new(__FILE__).realpath.dirname
-$YKCONFIG_PATH = File.join(File.expand_path(Dir.home), '.ykfastlaneEnv')
-$YKRUNING_PATH = File.expand_path(Dir.pwd)
+@SCRIPT_PATH = Pathname.new(__FILE__).realpath.dirname
+@YKCONFIG_PATH = File.join(File.expand_path(Dir.home), '.ykfastlaneEnv')
+@YKRUNING_PATH = File.expand_path(Dir.pwd)
 
 module Ykfastlane
   class YKFastlaneExecute
@@ -31,10 +31,11 @@ module Ykfastlane
       optionHash.each_pair { |k, v| paras[k] = v }
       puts "paras:#{paras.dup}"
 
-      workspace_path = $YKRUNING_PATH
-      workspace_path << paras[:xcworkspace] unless paras[:xcworkspace].blank?
+      puts "$YKRUNING_PATH:#{@YKRUNING_PATH}"
+      workspace_path = @YKRUNING_PATH
+      workspace_path = paras["xcworkspace"] unless paras["xcworkspace"].blank?
       paras[:xcworkspace] = workspace_path
-      paras[:script_run_path] = $YKRUNING_PATH
+      paras[:script_run_path] = @YKRUNING_PATH
 
       puts "options_after:#{paras}"
       option_str = ""
