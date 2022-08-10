@@ -1,6 +1,5 @@
 require 'ykfastlane'
 require 'rails'
-require 'fir'
 
 $SCRIPT_PATH = Pathname.new(__FILE__).realpath.dirname
 $YKCONFIG_PATH = File.join(File.expand_path(Dir.home), '.ykfastlaneEnv')
