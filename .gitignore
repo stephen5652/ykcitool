@@ -1,0 +1,17 @@
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+
+# idea
+.idea/sonarlint
+
+# bundle 
+vendor
+
+# debug projects dir
+debugProjects
+
