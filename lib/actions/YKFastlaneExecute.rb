@@ -1,11 +1,26 @@
-require 'ykfastlane'
 require 'rails'
+require 'thor'
 
-@SCRIPT_PATH = Pathname.new(__FILE__).realpath.dirname
-@YKCONFIG_PATH = File.join(File.expand_path(Dir.home), '.ykfastlaneEnv')
-@YKRUNING_PATH = File.expand_path(Dir.pwd)
+require_relative "../interface"
+require_relative "../ykfastlane/helper"
 
-module Ykfastlane
+module YKFastlane
+
+  class SubCommandBase < Thor
+    class_option :verbose, :type => :boolean
+    def self.exit_on_failure?
+      true
+    end
+
+    def self.banner(command, namespace = nil, subcommand = false)
+      "#{basename} #{subcommand_prefix} #{command.usage}"
+    end
+
+    def self.subcommand_prefix
+      self.name.gsub(%r{.*::}, '').gsub(%r{^[A-Z]}) { |match| match[0].downcase }.gsub(%r{[A-Z]}) { |match| "-#{match[0].downcase}" }
+    end
+  end
+
   class YKFastlaneExecute
     def self.executeCommand(commandShell_pre, commandShell)
       excuteStr = " "
@@ -31,11 +46,11 @@ module Ykfastlane
       optionHash.each_pair { |k, v| paras[k] = v }
       puts "paras:#{paras.dup}"
 
-      puts "$YKRUNING_PATH:#{@YKRUNING_PATH}"
-      workspace_path = @YKRUNING_PATH
+      puts "YKRUNING_PATH:#{Helper::YKRUNING_PATH}"
+      workspace_path = Helper::YKRUNING_PATH
       workspace_path = paras["xcworkspace"] unless paras["xcworkspace"].blank?
       paras[:xcworkspace] = workspace_path
-      paras[:script_run_path] = @YKRUNING_PATH
+      paras[:script_run_path] = Helper::YKRUNING_PATH
 
       puts "options_after:#{paras}"
       option_str = ""
@@ -50,7 +65,7 @@ module Ykfastlane
       command = "fastlane #{lane_name} #{option_str}" unless option_str.blank?
 
       command_pre = "export LANG=en_US.UTF-8 && export LANGUAGE=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && which ruby"
-      command_pre << " && cd #{Ykfastlane::FASTLANE_SCRIPT_PATH}"
+      command_pre << " && cd #{Helper::YKFastlne_SCRIPT_PATH}"
 
       executeCommand(command_pre, command)
     end

@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-
-require "bundler/setup"
-require "ykfastlane"
+puts "call ykfastlane"
+require_relative "../lib/interface"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
@@ -11,4 +10,5 @@ require "ykfastlane"
 # require "pry"
 # Pry.start
 
-Ykfastlane::Cmd.start(ARGV)
+puts "ykfastlane start"
+Ykfastlane::Interface.start(ARGV)
