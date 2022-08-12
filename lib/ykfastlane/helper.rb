@@ -36,6 +36,7 @@ module YKFastlane
       print "\n#{question}? ["
       print_info = Proc.new {
         possible_answers_string = possible_answers.each_with_index do |answer, i|
+          puts "answer:#{answer}"
           _answer = (i == 0) ? answer.underlined : answer
           print " " + _answer
           print(" /") if i != possible_answers.length - 1

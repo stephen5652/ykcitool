@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ykfastlane (0.2.2)
+    ykfastlane (0.2.3)
       fastlane
       git
       rails

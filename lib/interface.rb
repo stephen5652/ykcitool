@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "ykfastlane/version"
+require 'ykfastlane/version'
 
-require_relative 'actions/YKFastlaneExecute'
-require_relative 'actions/archive'
-require_relative 'actions/pod'
-require_relative 'actions/init'
+require 'actions/YKFastlaneExecute'
+require 'actions/archive'
+require 'actions/pod'
+require 'actions/init'
 
 module Ykfastlane
   class Interface < Thor

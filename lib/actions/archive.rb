@@ -1,4 +1,4 @@
-require_relative "YKFastlaneExecute"
+require "actions/YKFastlaneExecute"
 module YKFastlane
 
   class Archive < YKFastlane::SubCommandBase

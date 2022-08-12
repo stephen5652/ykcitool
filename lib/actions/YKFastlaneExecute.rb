@@ -1,8 +1,7 @@
 require 'rails'
 require 'thor'
 
-require_relative "../interface"
-require_relative "../ykfastlane/helper"
+require "ykfastlane/helper"
 
 module YKFastlane
 
