@@ -7,7 +7,7 @@ require 'actions/archive'
 require 'actions/pod'
 require 'actions/init'
 
-module Ykfastlane
+module YKFastlane
   class Interface < Thor
     class_option :verbose, :type => :boolean
     def self.exit_on_failure?

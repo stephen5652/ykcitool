@@ -14,4 +14,4 @@ puts "thor version:#{Thor::VERSION}"
 # Pry.start
 
 puts "ykfastlane start"
-Ykfastlane::Interface.start(ARGV)
+YKFastlane::Interface.start(ARGV)
