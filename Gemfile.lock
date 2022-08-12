@@ -1,11 +1,12 @@
 PATH
   remote: .
   specs:
-    ykfastlane (0.2.1)
+    ykfastlane (0.2.2)
       fastlane
       git
       rails
       thor
+      yaml
 
 GEM
   remote: https://rubygems.org/
@@ -444,6 +445,7 @@ GEM
       rouge (~> 2.0.7)
     xcpretty-travis-formatter (1.0.1)
       xcpretty (~> 0.2, >= 0.0.7)
+    yaml (0.2.0)
     zeitwerk (2.6.0)
 
 PLATFORMS
