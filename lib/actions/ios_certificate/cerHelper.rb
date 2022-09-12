@@ -19,7 +19,6 @@ module YKFastlane
 
     CER_CONFIG_DETAIL_MAP = File.expand_path(File.join(CER_CONFIG_DETAIL_DIR, "cer_map.yml"))
 
-
     '' ' 配置文件key-cer_detail_remote' ''
     K_CER_DETAIL_REMOTE = "cer_detail_remote"
     K_CER_ENCRYPT_PASSWORD = "cer_encrypt_key"
@@ -29,9 +28,6 @@ module YKFastlane
 
     '' ' 证书明细文件key-p12_password' ''
     K_detail_file_password = :p12_password
-
-    '' ' 证书明细文件key-pro_name' ''
-    K_detail_pro_name = "pro_name"
 
     '' ' 证书明细文件key-pro_type' ''
     K_detail_pro_type = "cer_pro_type"
@@ -63,7 +59,7 @@ module YKFastlane
       map = YKFastlane::Tools.load_yml(CerHelper::CER_CONFIG_DETAIL_MAP)
       dict[CerHelper::K_detail_file_name] = file_name
       if map[dict_key].blank?
-        map[dict_key] = {dict[CerHelper::K_detail_file_name]=> dict}
+        map[dict_key] = { dict[CerHelper::K_detail_file_name] => dict }
       else
         cer_map = map[dict_key]
         cer_map[dict[CerHelper::K_detail_file_name]] = dict
@@ -74,5 +70,27 @@ module YKFastlane
 
       YKFastlane::Tools.git_commit(CerHelper::CER_CONFIG_DETAIL_DIR, update_msg)
     end
+
+    def self.keychain_path(keychain_name)
+      name = keychain_name.sub(/\.keychain$/, "")
+      possible_locations = [
+        File.join(Dir.home, 'Library', 'Keychains', name),
+        name
+      ].map { |path| File.expand_path(path) }
+
+      # Transforms ["thing"] to ["thing-db", "thing.keychain-db", "thing", "thing.keychain"]
+      keychain_paths = []
+      possible_locations.each do |location|
+        keychain_paths << "#{location}-db"
+        keychain_paths << "#{location}.keychain-db"
+        keychain_paths << location
+        keychain_paths << "#{location}.keychain"
+      end
+
+      keychain_path = keychain_paths.find { |path| File.file?(path) }
+      UI.user_error!("Could not locate the provided keychain. Tried:\n\t#{keychain_paths.join("\n\t")}") unless keychain_path
+      keychain_path
+    end
+
   end
 end

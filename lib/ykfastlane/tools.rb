@@ -8,6 +8,10 @@ module YKFastlane
       "\033[0;32m#{string}\e[0m"
     end
 
+    def self.UI(string)
+      puts(self.green(string))
+    end
+
     def self.show_prompt
       print green(">")
     end
@@ -155,7 +159,7 @@ module YKFastlane
       else
         puts "git clean, work success"
         git.push('origin', curbranch)
-        return
+        return 0
       end
     end
 

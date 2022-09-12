@@ -7,6 +7,7 @@ module YKFastlane
     include YKFastlane::Tools
     include YKFastlane::CerHelper
     require "openssl"
+    require 'security'
 
     def self.display_cer_env()
       YKFastlane::Tools.display_yml(CerHelper::CER_CONFIG_FILE)
@@ -45,9 +46,45 @@ module YKFastlane
         :ou => ou,
         :cn => cn,
         :uid => uid,
+
       }
-      puts "certificate_info:#{result}"
       result
+    end
+
+    def install_cers(map)
+      map.each do |key, info|
+        file_path = File.join(CerHelper::CER_CONFIG_DETAIL_DIR_P12, info[CerHelper::K_detail_file_name])
+        password = info[CerHelper::K_detail_file_password]
+
+        password_part = " -P #{password}"
+        command = "security import #{file_path} -k #{CerHelper.keychain_path("login")}"
+        command << password_part
+        command << " -T /usr/bin/codesign" # to not be asked for permission when running a tool like `gym` (before Sierra)
+        command << " -T /usr/bin/security"
+        command << " -T /usr/bin/productbuild" # to not be asked for permission when using an installer cert for macOS
+        command << " -T /usr/bin/productsign"  # to not be asked for permission when using an installer cert for macOS
+
+        sensitive_command = command.gsub(password_part, " -P ********")
+        YKFastlane::Tools.UI(sensitive_command)
+        Open3.popen3(command) do |stdin, stdout, stderr, thrd|
+          YKFastlane::Tools.UI(stdout.read.to_s)
+
+          # Set partition list only if success since it can be a time consuming process if a lot of keys are installed
+          if thrd.value.success?
+            YKFastlane::Tools.UI("install one p12 success:#{file_path}")
+          else
+            # Output verbose if file is already installed since not an error otherwise we will show the whole error
+            err = stderr.read.to_s.strip
+            if err.include?("SecKeychainItemImport") && err.include?("The specified item already exists in the keychain")
+              YKFastlane::Tools.UI("'#{File.basename(path)}' is already installed on this machine")
+            else
+              YKFastlane::Tools.UI("error:#{err}")
+            end
+          end
+        end
+
+      end
+
     end
 
   end
