@@ -6,9 +6,13 @@ require 'actions/YKFastlaneExecute'
 require 'actions/archive'
 require 'actions/pod'
 require 'actions/init'
+require 'actions/ios_certificate/certificate'
+require 'thor'
 
 module YKFastlane
   class Interface < Thor
+    include Thor::Actions
+
     class_option :verbose, :type => :boolean
     def self.exit_on_failure?
       true
@@ -30,5 +34,8 @@ module YKFastlane
 
     desc "init", "init ykfastlane"
     subcommand "init", YKFastlane::Init
+
+    desc "certificate", "manager ios certificate & profile files"
+    subcommand "certificate", YKFastlane::Certificate
   end
 end

@@ -1,0 +1,9 @@
+
+‡	ruby:S100"rRename function "executeCommand" to match the regular expression ^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$(¯Ò
+	ruby:S117"jRename this parameter to match the regular expression "^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$".(¯Ò
+	ruby:S117"jRename this parameter to match the regular expression "^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$".(¯Ò
+„	ruby:S117"oRename this local variable to match the regular expression "^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$".(ó¢ˆ«
+“	ruby:S100+"yRename function "exchangOptionMapToStr" to match the regular expression ^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$(¾šÀùøÿÿÿÿ
+„	ruby:S117+"jRename this parameter to match the regular expression "^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$".(¾šÀùøÿÿÿÿ
+Œ	ruby:S100>"wRename function "executeFastlaneLane" to match the regular expression ^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$(ó¼ª‡
+	ruby:S117>"jRename this parameter to match the regular expression "^(@{0,2}[\da-z_]+[!?=]?)|([*+-/%=!><~]+)|(\[]=?)$".(ó¼ª‡

@@ -2,7 +2,7 @@ require "actions/YKFastlaneExecute"
 module YKFastlane
 
   class Archive < YKFastlane::SubCommandBase
-      desc "fire", "archive ios project and upload to fire"
+      desc "fire", "archive ios project and upload to fire, will send failed message to enterprise robot \'#{Helper::YKWECHAT_ROBOT_TOKEN}\'"
       option :scheme, :required => true, :type => :string, :aliases => :s, :desc => 'scheme name'
       option :fir_api_token, :type => :string, :aliases => :f, :required => true, :desc => 'Fir平台api token'
       option :wxwork_access_token, :type => :string, :aliases => :w, :desc => '企业微信机器人 webhook中的key字段'
@@ -18,7 +18,7 @@ module YKFastlane
         exit(code)
       end
 
-      desc "pgyer", "archive ios project and upload to pgyer"
+      desc "pgyer", "archive ios project and upload to pgyer, will send failed message to enterprise robot \'#{Helper::YKWECHAT_ROBOT_TOKEN}\'"
       option :scheme, :required => true, :type => :string, :aliases => :s, :desc => 'scheme name'
       option :pgyer_api, :type => :string, :aliases => :a, :required => true, :desc => '蒲公英平台的api key'
       option :pgyer_user, :type => :string, :aliases => :u, :required => true, :desc => '蒲公英平台的user key'
