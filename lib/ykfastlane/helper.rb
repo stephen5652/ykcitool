@@ -9,7 +9,7 @@ module YKFastlane
     YKRUNING_PATH = File.expand_path(Dir.pwd)
     '' 'fastlane脚本放置路径' ''
     YKFastlne_SCRIPT_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'ykfastlane_script'))
-    '' '配置文件放置路' ''
+    '' '配置文件放置路径' ''
     YKCONFIG_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH,'evnConfig.yml'))
 
     def self.load_config_yml()
