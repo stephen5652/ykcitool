@@ -106,6 +106,11 @@ module YKFastlane
         end
       end
 
+      if options[:wxwork_access_token].blank?
+        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
+        options[:wxwork_access_token] = wxtoken unless wxtoken.blank?
+      end
+
       code = YKFastlaneExecute.executeFastlaneLane("archive_tf", options)
       exit(code)
     end

@@ -27,6 +27,7 @@ module YKFastlane
       excuteStr << commandShell unless commandShell.blank?
 
       puts "START COMMAND:#{excuteStr}"
+      code = 1
       system(excuteStr)
       result = $?
       puts "command result[#{result.class}]:#{result}"
@@ -36,6 +37,8 @@ module YKFastlane
         #任务失败, 此处需要发送企业微信的通知到开发群
         puts "should report error to developer group"
         noticeCmd = commandShell_pre
+        commandShell = commandShell.gsub!( " ", "\\ " )
+        commandShell = commandShell.gsub!( "\"", "\\\"")
         noticeCmd << "&& fastlane wx_message_notice wx_notice_token:#{Helper::YKWECHAT_ROBOT_TOKEN} msg_title:\"CI work failed\" notice_message:\"#{commandShell}\""
         puts "notice_command:#{noticeCmd}"
         system(noticeCmd)
