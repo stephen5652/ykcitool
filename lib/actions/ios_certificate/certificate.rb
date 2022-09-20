@@ -42,7 +42,7 @@ module YKFastlane
 
       profile_name = File.basename(path)
       result = CerHelper.update_detail_map(dict, :profile_map, path, CerHelper::CER_CONFIG_DETAIL_DIR_PROFILE, "update profile:#{profile_name}")
-      YKFastlane::Tools.UI("update profile success:#{cer_name}") unless  result != 0
+      YKFastlane::Tools.UI("update profile success:#{profile_name}") unless  result != 0
     end
 
     desc "sync_cer", "edit certificate & profile for project schem or target"
