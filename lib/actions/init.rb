@@ -8,10 +8,13 @@ module YKFastlane
   class Init < YKFastlane::SubCommandBase
     include Helper
 
-    desc "script", "init fast file from the remote"
+    desc "sync_script", "sync fast file from the remote"
+    long_desc <<-LONGDESC
+    同步远端fastlane脚本，此处可以通过参数下载固定的fastlan仓库，也可以使用环境配置的仓库来下载。
+    LONGDESC
     option :fastfile_remote, :aliases => :f, :type => :string, :desc => "fastlane 文件仓库地址, 如果未传递，则使用env中配置的，#{Helper::YKCONFIG_PATH}"
 
-    def script()
+    def sync_script()
       fastfile_remote = options[:fastfile_remote].blank? ? Helper::load_config_value(Helper::K_fastfile_remote) : options[:fastfile_remote]
 
       if fastfile_remote.blank?
@@ -41,6 +44,10 @@ module YKFastlane
     end
 
     desc 'config', "update configuration file: #{Helper::YKCONFIG_PATH}"
+    long_desc <<-LONGDESC
+    本指令集只是一个门户指令，核心打包功能是通过调用fastlane脚本来实现的。
+    需要配置： 1.配置fastlane脚本的远程仓库； 2.配置任务失败时候的反馈企业微信机器人, [【企业微信机器人配置】](https://developer.work.weixin.qq.com/document/path/91770)
+    LONGDESC
     option :fastfile_remote, :aliases => :f, :type => :string, :desc => "fastlane 文件的git remote, 可用参数：#{Helper.default_fast_file_remote()}"
     option :wx_token, :aliases => :t, :type => :string, :desc => "enterprise wechat robot token"
 
