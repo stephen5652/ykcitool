@@ -6,11 +6,10 @@ source "https://rubygems.org"
 gem 'ykfastlane', :path => './'
 
 group :debug do
-  # gem 'ruby-debug-ide', '0.7.3'
-  # gem 'debase'
-  # gem 'bundler', '2.3.6'
+  gem 'ruby-debug-ide', '0.7.3'
+  gem 'debase'
+  gem 'bundler'
   #
-  gem 'fir'
   gem 'thor'
   gem 'railties', '6.0.0'
 

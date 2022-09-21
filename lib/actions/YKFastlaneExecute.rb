@@ -39,7 +39,7 @@ module YKFastlane
         noticeCmd = commandShell_pre
         commandShell = commandShell.gsub!( " ", "\\ " )
         commandShell = commandShell.gsub!( "\"", "\\\"")
-        noticeCmd << "&& fastlane wx_message_notice wx_notice_token:#{Helper::YKWECHAT_ROBOT_TOKEN} msg_title:\"CI work failed\" notice_message:\"#{commandShell}\""
+        noticeCmd << "&&bundle exec fastlane wx_message_notice wx_notice_token:#{Helper::YKWECHAT_ROBOT_TOKEN} msg_title:\"CI work failed\" notice_message:\"#{commandShell}\""
         puts "notice_command:#{noticeCmd}"
         system(noticeCmd)
       end
@@ -68,7 +68,7 @@ module YKFastlane
 
     def self.executeFastlaneLane(lane_name, optionHash)
       option_str = exchangOptionMapToStr(optionHash)
-      command = "fastlane #{lane_name} #{option_str}" unless option_str.blank?
+      command = "bundle exec fastlane #{lane_name} #{option_str}" unless option_str.blank?
 
       command_pre = "export LANG=en_US.UTF-8 && export LANGUAGE=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && which ruby"
       command_pre << " && cd #{Helper::YKFastlne_SCRIPT_PATH}"

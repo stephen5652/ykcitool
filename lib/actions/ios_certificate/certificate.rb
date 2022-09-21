@@ -3,7 +3,6 @@ require 'actions/ios_certificate/profileTools'
 require 'actions/ios_certificate/cerHelper'
 require 'actions/YKFastlaneExecute'
 require 'thor'
-require 'fastlane'
 require 'openssl'
 
 module YKFastlane
