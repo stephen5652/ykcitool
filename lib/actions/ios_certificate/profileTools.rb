@@ -7,7 +7,6 @@ module YKFastlane
     include YKFastlane::Tools
     include YKFastlane::CerHelper
     require 'openssl'
-    require 'websocket/driver'
 
     def analysisProfile(path)
       asn1 = OpenSSL::ASN1.decode_all(File.binread(path))
