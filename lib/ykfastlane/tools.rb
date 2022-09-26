@@ -121,7 +121,7 @@ module YKFastlane
         cloneResult = Git::clone(remote, destinationPath, :log => Logger.new(Logger::Severity::INFO))
         puts "clone_result:#{cloneResult}"
       rescue Git::GitExecuteError => e
-        puts "clone failed[#{e.exit_status}]:#{e}"
+        puts "clone failed:#{e}"
         return 1 #任务失败
       end
       return 0
@@ -135,7 +135,7 @@ module YKFastlane
         curbranch = git.current_branch
         git.pull('origin', curbranch)
       rescue Git::GitExecuteError => e
-        puts "pull remote failed[#{e.exit_status}]:#{e}"
+        puts "pull remote failed:#{e}"
         return 1 #任务失败
       end
 
@@ -149,7 +149,7 @@ module YKFastlane
       begin
         git.commit("update:#{msg}")
       rescue Git::GitExecuteError => e
-        puts "commit update execption[#{e.exit_status}]:#{e}"
+        puts "commit update execption:#{e}"
       end
 
       status = git.status()

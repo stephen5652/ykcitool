@@ -8,13 +8,27 @@ iOS 通用打包工具的终端门户工具
     - [基础配置](#基础配置)
     - [证书管理](#证书管理)
     - [打包](#打包)
+  - [异常情况处理](#异常情况处理)
   - [License](#license)
+    - [建议](#建议)
 
 ## Installation
 
-Install it on your mac as:
+本指令集适用与ruby 2.7.5 ~ 3.0.3
 
-    $ gem install ykfastlane
+- 安装ruby
+
+ruby版本管理有两种方式 rvm 与 rbenv, 建议使用rbenv.
+安装对应的ruby版本，建议使用2.7.5；并切换ruby版本到满足需求的版本。
+
+- 安装ykfastlane
+
+```shell
+gem install ykfastlane
+```
+
+- 做基础配置
+- 安装fastlane脚本
 
 ## Usage
 
@@ -169,6 +183,7 @@ iOS证书管理有多种方案：
       > 在其他目录打包：
       由于.xcworkspace未必在git仓库根目录，所以可以用参数 -x 指定 .xcworkspace 的相对路径 </br>
       如果终端工作路径在 .xcworkspace同级目录，则可以不使用参数 -x </br>
+      如果不用专门通知企业微信业务群，可以不指定 -w 参数，会默认使用env中配置的企微机器人。</br>
       > ```shell
       > ykfastlane archive fire -s XXXX -x ～/users/xxx/xxx/xxxx.xcworkspace -f xxxx -e enterprise -n "iOS测试包" -w xxxx
       > ```
@@ -189,15 +204,32 @@ iOS证书管理有多种方案：
     - 使用方式
 
       通用支持两种打包方式， 通过 -x 参数来指定 .xcworkspace 的路径
-      > 此处需要特别说明 -u -p 参数 </br>
+      > 此处需要特别说明 -u -p -w -c 参数 </br>
       -u 开发者的Apple ID </br>
-      -p 开发者Apple ID的App专属密钥[^3]。[【传送门】](https://appleid.apple.com/account/manage)
-
+      -p 开发者Apple ID的App专属密钥[^3]。[【传送门】](https://appleid.apple.com/account/manage) </br>
+      -w 企微机器人，如果不指定，则默认使用env中配置的机器人。 </br>
+      -c 是否需要pod install， 默认不执行。
+    
       指令范例：
       ```shell
       ykfastlane archive tf -s XXX -u xxxx.@xxx.com  -p xxxx-xxxx-xxxx-xxxx -n iOS测试包 -w xxxxx -c 1
       ```
-    
+
+## 异常情况处理
+
+- public_suffix 版本冲突
+
+  - 清空gem
+  
+    ```shell
+    gem clean
+    ```
+
+  - 卸载 public_suffix
+
+    ```shell
+    gem uninstall public_suffix
+    ```
 
 ## License
 
@@ -208,3 +240,14 @@ The gem is available as open source under the terms of the [MIT License](https:/
 [^2]:企业微信机器人配置网址: https://developer.work.weixin.qq.com/document/path/91770
 
 [^3]: 配置App专属密钥的网址: https://appleid.apple.com/account/manage
+
+
+### 建议
+
+fire-api-token 做全局配置
+
+tf tag参数化，可以控制是否打tag
+
+builde 号不交付苹果管理，指令集也不管理，交由工程配置
+
+显示打包结果的存储路径

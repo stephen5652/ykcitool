@@ -39,6 +39,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'security'
   spec.add_dependency 'openssl'
   spec.add_dependency 'json'
+  spec.add_dependency 'plist'
+  spec.add_dependency 'public_suffix', '< 5.0.0'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

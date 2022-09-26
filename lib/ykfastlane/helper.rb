@@ -7,10 +7,11 @@ module YKFastlane
     include YKFastlane::Tools
     '' '脚本当前工作路径' ''
     YKRUNING_PATH = File.expand_path(Dir.pwd)
-    '' 'fastlane脚本放置路径' ''
-    YKFastlne_SCRIPT_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'ykfastlane_script'))
     '' '配置文件放置路径' ''
     YKCONFIG_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH,'evnConfig.yml'))
+
+    '' 'fastlane脚本放置路径' ''
+    YKFastlne_SCRIPT_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'ykfastlane_script'))
 
     def self.load_config_yml()
       Tools.load_yml(Helper::YKCONFIG_PATH)
@@ -48,7 +49,24 @@ module YKFastlane
     K_wx_access_token = "wx_access_token"
 
     '' '企业微信CI机器人' ''
-    YKWECHAT_ROBOT_TOKEN = self.load_config_value(Helper::K_wx_access_token)
+    YKWECHAT_ROBOT_TOKEN = Helper.load_config_value(Helper::K_wx_access_token)
+
+    '''fastlane脚本路径'''
+    K_YK_CONFIG_FASTLANE_SCRIPT = :fast_file
+    '''fastlane debug开关'''
+    K_YK_CONFIG_FASTLANE_DEBUG = :fast_file_debug
+
+    def self.fastlane_script
+      path = Helper.load_config_value(K_YK_CONFIG_FASTLANE_SCRIPT)
+      debug = Helper.load_config_value(K_YK_CONFIG_FASTLANE_DEBUG)
+      puts "path:#{path}"
+      puts "debug flag[#{debug.class}]:#{debug}"
+      if path.blank? || debug.blank? || debug != "1"
+        path = YKFastlne_SCRIPT_PATH
+      end
+      puts "fastlane file path:#{path}"
+      path
+    end
 
   end
 end

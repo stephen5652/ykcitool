@@ -58,6 +58,15 @@ module YKFastlane
       Helper.display_config_yml
     end
 
+    desc 'define_fast_execute_path', "指定fastlane文件的路径，此处是为了调试fastlane脚本"
+    option :debug_flag, :aliases => :d, :type => :string, :require => true, :desc => "运行调试脚本的开关, 1:运行调试脚本， 其他:运行默认脚本"
+    option :fastfile_path, :aliases => :e, :type => :string, :desc => "运行的fastlane 文件的路径，此处是为了调试"
+
+    def define_fast_execute_path()
+      Helper.update_config("debug flag", Helper::K_YK_CONFIG_FASTLANE_DEBUG, options[:debug_flag] ? options[:debug_flag] : 0)
+      Helper.update_config("execute path", Helper::K_YK_CONFIG_FASTLANE_SCRIPT, options[:fastfile_path].blank? ? "" : options[:fastfile_path])
+    end
+
     desc "list_config", "print the env config file: #{Helper::YKCONFIG_PATH}"
 
     def list_config()

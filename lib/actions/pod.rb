@@ -1,4 +1,6 @@
 require 'actions/YKFastlaneExecute'
+require 'ykfastlane/helper'
+require 'rails'
 
 module YKFastlane
   class Pod < YKFastlane::SubCommandBase
@@ -15,6 +17,11 @@ module YKFastlane
 
     def github_transfer()
       puts "github_pod_transfer"
+      if options[:wxwork_access_token].blank?
+        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
+        options[:wxwork_access_token] = wxtoken unless wxtoken.blank?
+      end
+
       code = Ykfastlane::YKFastlaneExecute.executeFastlaneLane("github_pod_transfer", options)
       exit(code)
     end
