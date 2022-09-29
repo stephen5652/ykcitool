@@ -61,6 +61,9 @@ module YKFastlane
       map.each do |key, info|
         file_path = File.join(CerHelper::CER_CONFIG_DETAIL_DIR_PROFILE, info[CerHelper::K_detail_file_name])
         install(file_path, CerHelper.keychain_path("login"))
+        #此处需要fastlane 收集一下uuid
+        para = {:profile_path => file_path}
+        YKFastlaneExecute.executeFastlaneLane("yk_install_mobileprovision", para)
       end
     end
 

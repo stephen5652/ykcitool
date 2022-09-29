@@ -8,6 +8,7 @@ module YKFastlane
     include YKFastlane::CerHelper
     require "openssl"
     require 'security'
+    require 'open3'
 
     def self.display_cer_env()
       YKFastlane::Tools.display_yml(CerHelper::CER_CONFIG_FILE)

@@ -191,7 +191,7 @@ module YKFastlane
         options.update(dict)
       end
 
-      code = YKFastlaneExecute.executeFastlaneLane("archive_fire", options)
+      code = YKFastlaneExecute.executeFastlaneLane("archive_fir", options)
       exit(code)
     end
 

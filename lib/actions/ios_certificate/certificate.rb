@@ -42,6 +42,10 @@ module YKFastlane
       profile_name = File.basename(path)
       result = CerHelper.update_detail_map(dict, :profile_map, path, CerHelper::CER_CONFIG_DETAIL_DIR_PROFILE, "update profile:#{profile_name}")
       YKFastlane::Tools.UI("update profile success:#{profile_name}") unless  result != 0
+
+      #此处需要fastlane 收集一下uuid
+      para = {:profile_path => path}
+      YKFastlaneExecute.executeFastlaneLane("yk_install_mobileprovision", para)
     end
 
     desc "sync_cer", "edit certificate & profile for project schem or target"
