@@ -61,8 +61,6 @@ module YKFastlane
 
     desc "edit_config", "edit certificate & profile git info, you can create your own git repository or used default repository:#{CerHelper::CER_GIT_DEFAULT_REPOSITORY}"
     option :remote, :require => true, :type => :string, :aliases => :r, :desc => 'certificate & profile git remote'
-    option :cer_encrypt_password, :require => true, :type => :string, :aliases => :p, :desc => 'certificate encrypt & decrypt password'
-
     def edit_config()
       puts "options:#{options}"
       encrypt_password = options[:cer_encrypt_password]

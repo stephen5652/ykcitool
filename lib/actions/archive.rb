@@ -9,6 +9,8 @@ module YKFastlane
     YKARCHIVE_ENV_PATH = File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'archive_config.yml')
 
     K_archiveEnv_config_tf = :test_flight
+    K_archiveEnv_tf_account = :user_name
+    K_archiveEnv_tf_password = :pass_word
 
     K_archiveEnv_config_fir = :fir
     K_archiveEnv_firApiToken = :fir_api_token
@@ -40,54 +42,52 @@ module YKFastlane
       YKFastlane::Tools.UI(YKARCHIVE_PRODUCT_PATH)
     end
 
-    desc "tf_edit_user", "edit or update tf apple account and password"
-    option :user_name, :type => :string, :aliases => :u, :required => true, :desc => 'apple id'
-    option :pass_word, :type => :string, :aliases => :p, :required => true, :desc => 'apple id 专属app密钥, 配置链接: https://appleid.apple.com/account/manage'
-
-    def tf_edit_user()
-      puts "archive tf_edit_user"
-      if options[:user_name].blank? || options[:user_name].blank?
-        YKFastlane::Tools.UI("work failed, since no :user_name or :pass_word --parameters:#{options}")
-        exit!(1)
-      end
-
-      self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf, options)
-      puts "archive tf_edit_user success"
-    end
-
-    desc "fir_edit_user", "edit or update fir api token"
-    option :fir_api_token, :type => :string, :aliases => :f, :required => true, :desc => 'fir 平台 api token'
-
-    def fir_edit_user()
-      puts "archive fir_edit_user"
-      if options[:fir_api_token].blank?
-        YKFastlane::Tools.UI("work failed, since no :fir_api_token")
-        exit!(1)
-      end
-
-      self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_fir, options)
-      puts "archive tf_edit_user success"
-    end
-
-    desc "pgyer_edit_user", "edit or update pgyer user"
+    desc 'platform_edit_user', "edit or update platform user"
     option :pgyer_user, :type => :string, :aliases => :u, :required => true, :desc => 'pgyer 平台 user'
     option :pgyer_api, :type => :string, :aliases => :a, :required => true, :desc => 'pgyer 平台 api, 配置链接: https://appleid.apple.com/account/manage'
+    option :fir_api_token, :type => :string, :aliases => :f, :required => true, :desc => 'fir 平台 api token'
+    option :apple_account, :type => :string, :aliases => :c, :required => true, :desc => 'apple id'
+    option :apple_password, :type => :string, :aliases => :p, :required => true, :desc => 'apple id 专属app密钥, 配置链接: https://appleid.apple.com/account/manage'
 
-    def pgyer_edit_user()
-      puts "archive fir_edit_user"
-      if options[:pgyer_user].blank? || options[:pgyer_api].blank?
-        YKFastlane::Tools.UI("work failed, since no :pgyer_user or :pgyer_api")
-        exit!(1)
+    def platform_edit_user()
+      puts "archive platform_edit_user"
+      if options[:pgyer_user].blank? == false && options[:pgyer_api].blank? == false # pgyer
+        pgyerinfo = {
+          K_archiveEnv_pgyer_api => options[:pgyer_api],
+          K_archiveEnv_pgyer_user => options[:pgyer_user]
+        }
+        self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_pgyer, pgyerinfo)
+        puts "archive update pgyer info success"
       end
 
-      self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_pgyer, options)
-      puts "archive tf_edit_user success"
+      if options[:fir_api_token].blank? == false #fir
+        fir_info = {
+          K_archiveEnv_firApiToken => options[:fir_api_token]
+        }
+        self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_fir, fir_info)
+        puts "archive update fir info success"
+      end
+
+      if options[:apple_password].blank? == false && options[:apple_password].blank? == false # tf
+        tf_info = {
+          K_archiveEnv_tf_account => options[:apple_account],
+          K_archiveEnv_tf_password => options[:apple_password]
+        }
+        self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf, tf_info)
+        puts "archive update tf info success"
+      end
     end
 
     desc "list_platform_user", "display the ipa bump platform user map"
 
     def list_platform_user()
       self.list_user_map()
+    end
+
+    desc "list_profiles", "print archive profiles info"
+    def list_profiles()
+      code = YKFastlaneExecute.executeFastlaneLane("list_profile_configs", options)
+      exit(code)
     end
 
     desc "upload_tf", "upload ipa to test flight, will send failed message to enterprise robot \'#{Helper::YKWECHAT_ROBOT_TOKEN}\'"
@@ -100,13 +100,8 @@ module YKFastlane
     def upload_tf()
       puts "upload_tf"
       if options[:user_name].blank? || options[:pass_word].blank?
-        apple_dict = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf)
+        apple_info = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf)
         options.update(apple_dict)
-      end
-
-      if options[:wxwork_access_token].blank?
-        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
-        options[:wxwork_access_token] = wxtoken unless wxtoken.blank?
       end
 
       code = YKFastlaneExecute.executeFastlaneLane("upload_ipa_to_tf", options)
@@ -133,11 +128,6 @@ module YKFastlane
         end
       end
 
-      if options[:wxwork_access_token].blank?
-        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
-        options[:wxwork_access_token] = wxtoken unless wxtoken.blank?
-      end
-
       code = YKFastlaneExecute.executeFastlaneLane("archive_tf", options)
       exit(code)
     end
@@ -155,10 +145,6 @@ module YKFastlane
 
     def pgyer()
       puts "archive_pgyer"
-      if options[:wxwork_access_token].blank?
-        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
-        options[:wxwork_access_token] = wxtoken unless wxtoken.blank?
-      end
 
       if options[:pgyer_user].blank? || options[:pgyer_api].blank?
         dict = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_pgyer)
@@ -181,11 +167,6 @@ module YKFastlane
 
     def fir()
       puts "archive_fir"
-      if options[:wxwork_access_token].blank?
-        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
-        options[:wxwork_access_token] = wxtoken unless wxtoken.blank?
-      end
-
       if options[:fir_api_token].blank?
         dict = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_fir)
         options.update(dict)

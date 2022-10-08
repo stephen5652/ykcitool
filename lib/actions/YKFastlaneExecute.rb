@@ -67,6 +67,11 @@ module YKFastlane
     end
 
     def self.executeFastlaneLane(lane_name, optionHash)
+      if optionHash[:wxwork_access_token].blank?
+        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
+        optionHash[:wxwork_access_token] = wxtoken unless wxtoken.blank?
+      end
+
       option_str = exchangOptionMapToStr(optionHash)
       command = "fastlane #{lane_name} #{option_str}" unless option_str.blank?
 
