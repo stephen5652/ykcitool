@@ -13,6 +13,17 @@ module YKFastlane
     include YKFastlane::CerTools
     include YKFastlane::ProfileTools
 
+    desc "sync_apple_profile", "sync and install mobile provision file from apple developer service"
+    option :user_name, :require => true , :type => :string, :aliases => :u, :desc => 'apple account'
+    option :password, :require => true , :type => :string, :aliases => :p, :desc => 'apple account password'
+    option :workspace, :require => false , :type => :string, :aliases => :w, :desc => 'p12 password'
+    option :bundle_ids, :require => false , :type => :string, :aliases => :b, :desc => "bundle identifier arr, separate by \",\" once more than one"
+
+    def sync_apple_profile()
+      puts "options:#{options}"
+      YKFastlaneExecute.executeFastlaneLane("sync_apple_profile", options)
+    end
+
     desc "update_cer", "edit certificate & profile for project schem or target"
     option :cer_password, :require => true, :type => :string, :aliases => :p, :desc => 'p12 password'
     option :cer_path, :require => true, :type => :string, :aliases => :c, :desc => 'p12 path'
@@ -82,6 +93,11 @@ module YKFastlane
           puts "path existed, we should delete it:#{c_path}"
           FileUtils.rm_r(c_path)
         end
+
+        if File.exist?(File.dirname(c_path)) == false
+          FileUtils.mkdir_p(File.dirname(c_path))
+        end
+
 
         FileUtils.mv(temp_path, c_path, force: true, verbose: true)
         puts "certificate detail path:#{c_path}"

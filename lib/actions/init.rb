@@ -3,6 +3,7 @@ require 'yaml'
 require 'json'
 
 require 'actions/YKFastlaneExecute'
+require 'actions/archiveHelper'
 
 module YKFastlane
   class Init < YKFastlane::SubCommandBase
@@ -35,6 +36,10 @@ module YKFastlane
         puts "directory exist, so we delete it:#{p}"
         FileUtils.remove_dir(p, true)
       end
+
+      if File.exist?(File.dirname(p)) == false
+        FileUtils.mkdir_p(File.dirname(p))
+      end
       FileUtils.mv(p_temp, p, force: true, verbose: true)
 
       Dir.chdir(p) do
@@ -49,12 +54,13 @@ module YKFastlane
     需要配置： 1.配置fastlane脚本的远程仓库； 2.配置任务失败时候的反馈企业微信机器人, [【企业微信机器人配置】](https://developer.work.weixin.qq.com/document/path/91770)
     LONGDESC
     option :fastfile_remote, :aliases => :f, :type => :string, :desc => "fastlane 文件的git remote, 可用参数：#{Helper.default_fast_file_remote()}"
-    option :wx_token, :aliases => :t, :type => :string, :desc => "enterprise wechat robot token"
+    option :wx_access_token, :aliases => :t, :type => :string, :desc => "enterprise wechat robot token"
 
     def config()
       puts "options:#{options}"
       Helper.update_config('', Helper::K_fastfile_remote, options[:fastfile_remote]) unless options[:fastfile_remote].blank?
-      Helper.update_config('', Helper::K_wx_access_token, options[:wx_token]) unless options[:wx_token].blank?
+      Helper.update_config('', Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
+      YKFastlane::ArchiveHelper.update_archive_map(Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
       Helper.display_config_yml
     end
 

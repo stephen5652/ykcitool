@@ -33,6 +33,7 @@ module YKFastlane
       puts "command result[#{result.class}]:#{result}"
       code = result.exitstatus if result.is_a?(Process::Status)
 
+      #### 以下代码注释，因为fastlane脚本中做了任务失败时候的通知
       # if code != 0
       #   #任务失败, 此处需要发送企业微信的通知到开发群
       #   puts "should report error to developer group"

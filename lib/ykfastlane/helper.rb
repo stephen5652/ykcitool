@@ -43,10 +43,10 @@ module YKFastlane
     end
 
     '' ' 配置文件key-fastfile_remote' ''
-    K_fastfile_remote = "fastfile_remote"
+    K_fastfile_remote = :fastfile_remote
 
     '' ' 配置文件key-wx_access_token' ''
-    K_wx_access_token = "wx_access_token"
+    K_wx_access_token = :wx_access_token
 
     '' '企业微信CI机器人' ''
     YKWECHAT_ROBOT_TOKEN = Helper.load_config_value(Helper::K_wx_access_token)
