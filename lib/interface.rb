@@ -6,7 +6,7 @@ require 'actions/YKFastlaneExecute'
 require 'actions/archive'
 require 'actions/pod'
 require 'actions/init'
-require 'actions/ios_certificate/certificate'
+require 'actions/certificate'
 require 'thor'
 
 module YKFastlane

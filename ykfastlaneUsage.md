@@ -1,50 +1,90 @@
 # Ykfastlane
 
 iOS 通用打包工具的终端门户工具
+本指令集适用与ruby 2.7.5 ~ 3.0.3
 
 - [Ykfastlane](#ykfastlane)
-  - [Installation](#installation)
     - [环境配置](#环境配置)
+    - [ykfastlane基础参数配置](#ykfastlane基础参数配置)
     - [证书配置](#证书配置)
     - [打包配置](#打包配置)
     - [打包功能](#打包功能)
 
-## Installation
-
-本指令集适用与ruby 2.7.5 ~ 3.0.3
-
 ### 环境配置
 
-- 安装ruby
+- ruby环境配置
 
-ruby版本管理有两种方式 rvm 与 rbenv, 建议使用rbenv.
-安装对应的ruby版本，建议使用2.7.5；并切换ruby版本到满足需求的版本。
+  ruby版本管理有两种方式 rvm 与 rbenv, 建议使用rbenv.
+安装对应的ruby版本，建议使用2.7.5；并切换ruby版本到满足需求的版本。</br>
 
   - rbenv 安装
 
-```shell
-brew install rbenv
-```
+  ```shell
+  brew install rbenv
+  ```
+
+  - 配置rbenv环境变量
+  
+    - 编辑 ～/.bash_profile
+  
+    ```shell
+    vi ~/.bash_profile
+    ```
+
+    - 输入rbenv环境信息
+
+    ```shell
+    # rbenv
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    ```
+
+    - 保存
+
+    ```shell
+    :wq
+    ```
+
+    - 载入环境变量
+
+    ```shell
+    source ~/.bash_profile
+    ```
+
+    - 配置rbenv文件权限
+
+    ```shell
+    sudo chown -R $(whoami) $HOME/.rbenv
+    ```
 
   - ruby 2.7.5 安装
 
-```shell
-rbenv install 2.7.5 --verbose
-```
+  ```shell
+  rbenv install 2.7.5 --verbose
+  ```
   
   - 配置 ruby 版本
-```shell
-rbenv global 2.7.5
-```
+
+  ```shell
+  rbenv global 2.7.5
+  ```
+
+  - 安装bundler
+
+  ```shell
+  gem install bundler
+  ```
 
   - 安装ykfastlane
 
-```shell
-gem install ykfastlane
-```
+  ```shell
+  gem install ykfastlane
+  ```
 
-- 基础参数配置
+### ykfastlane基础参数配置
 
+- 配置基础参数
+  
 ```shell
 ykfastlane init config -f http://gitlab.yeahka.com/App/iOS/ykfastlane.git  -t 5ef50d9f-6426-4c4c-94f8-f08a4f0e1611
 ```
@@ -95,7 +135,7 @@ ykfastlane certificate sync-cer
   
     指令样例：【当前终端路径是工程目录】
     ```shell
-    ykfastlane certificate sync_apple_profile -u stephen5652@126.com -p CXX565289910cxx -b "com.Isale.cn.YKLeXiangBan,com.yeahka.agent","com.lsale.cn.LSsaleChainForIpad,com.topsida.lyl","com.YeahKa.KuaiFuBa","com.YeahKa.KuaiFuBa123" -w ./
+    ykfastlane certificate sync_apple_profile -u xxxxxxx -p xxxxx -b "com.Isale.cn.YKLeXiangBan,com.yeahka.agent","com.lsale.cn.LSsaleChainForIpad,com.topsida.lyl","com.YeahKa.KuaiFuBa","com.YeahKa.KuaiFuBa123" -w ./
     ```
 
 ### 打包配置
