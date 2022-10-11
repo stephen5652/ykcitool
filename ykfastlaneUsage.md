@@ -4,13 +4,10 @@ iOS 通用打包工具的终端门户工具
 
 - [Ykfastlane](#ykfastlane)
   - [Installation](#installation)
-  - [Usage](#usage)
-    - [基础配置](#基础配置)
-    - [证书管理](#证书管理)
-    - [打包](#打包)
-  - [异常情况处理](#异常情况处理)
-  - [License](#license)
-    - [建议](#建议)
+    - [环境配置](#环境配置)
+    - [证书配置](#证书配置)
+    - [打包配置](#打包配置)
+    - [打包功能](#打包功能)
 
 ## Installation
 
