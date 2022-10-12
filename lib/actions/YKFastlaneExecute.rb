@@ -68,12 +68,14 @@ module YKFastlane
     end
 
     def self.executeFastlaneLane(lane_name, optionHash)
-      if optionHash[:wxwork_access_token].blank?
+      dict = {}
+      dict.update(optionHash)
+      if dict[:wxwork_access_token].blank?
         wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
-        optionHash[:wxwork_access_token] = wxtoken unless wxtoken.blank?
+        dict.update({:wxwork_access_token => wxtoken})
       end
 
-      option_str = exchangOptionMapToStr(optionHash)
+      option_str = exchangOptionMapToStr(dict)
       command = "bundle exec fastlane #{lane_name} #{option_str}" unless option_str.blank?
 
       command_pre = "export LANG=en_US.UTF-8 && export LANGUAGE=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && which ruby"
