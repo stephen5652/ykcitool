@@ -12,6 +12,7 @@ require 'thor'
 module YKFastlane
   class Interface < Thor
     include Thor::Actions
+    require_relative 'actions/YKFastlaneExecute'
 
     class_option :verbose, :type => :boolean
     def self.exit_on_failure?
