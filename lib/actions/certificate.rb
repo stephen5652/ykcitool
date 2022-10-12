@@ -1,4 +1,5 @@
 require 'actions/YKFastlaneExecute'
+require 'ykfastlane/helper'
 require 'thor'
 require 'openssl'
 
@@ -14,9 +15,15 @@ module YKFastlane
     def sync_apple_profile()
       puts "options:#{options}"
       arr = options[:bundle_ids]
-      if arr != nil  && arr.count > 0
+      if arr != nil && arr.count > 0
         str = arr.join(",")
         options[:bundle_ids] = str
+      end
+
+      if options[:workspace].blank? == false
+        Dir.chdir(Dir.pwd) do
+          options[:workspace] = File.expand_path(options[:workspace])
+        end
       end
 
       puts "options_formatter:#{options}"
@@ -28,13 +35,14 @@ module YKFastlane
     option :profile_path, :require => true, :type => :array, :aliases => :p, :desc => 'profile path'
 
     def update_profile()
-      p = Dir.pwd
       result_arr = []
       arr = options[:profile_path]
-      if arr != nil  && arr.count > 0
-        arr.each do |one|
-          path = File.join(p, one)
-          result_arr << path
+      if arr != nil && arr.count > 0
+        Dir.chdir(Dir.pwd) do
+          arr.each do |one|
+            path = File.expand_path(one)
+            result_arr << path
+          end
         end
       end
 
@@ -53,7 +61,10 @@ module YKFastlane
       puts "options:#{options}"
 
       para = {}
-      para[:cer_path] = File.expand_path(options[:cer_path]) unless options[:cer_path].blank?
+      Dir.chdir(Dir.pwd) do
+        para[:cer_path] = File.expand_path(options[:cer_path]) unless options[:cer_path].blank?
+      end
+
       para[:password] = options[:cer_password]
 
       code = YKFastlaneExecute.executeFastlaneLane("update_certificate_p12", para)
@@ -61,7 +72,7 @@ module YKFastlane
     end
 
     desc "sync_git", "sync certificate & profile git, and will overwrite the existed files once pass the remote_url"
-    option :remote_url, :require => false, :type => :string, :aliases => :r, :desc => 'git remote url'
+    option :remote_url, :require => false, :type => :string, :aliases => :r, :desc => "git remote url, example:#{YKFastlane::Helper.default_certificate_git_remote}"
 
     def sync_git()
       puts "#{method(:sync_git)}--options:#{options}"

@@ -8,7 +8,7 @@ module YKFastlane
     '' '脚本当前工作路径' ''
     YKRUNING_PATH = File.expand_path(Dir.pwd)
     '' '配置文件放置路径' ''
-    YKCONFIG_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH,'evnConfig.yml'))
+    YKCONFIG_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'evnConfig.yml'))
 
     '' 'fastlane脚本放置路径' ''
     YKFastlne_SCRIPT_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'ykfastlane_script'))
@@ -29,16 +29,28 @@ module YKFastlane
       Tools.update_yml(qustion, Helper::YKCONFIG_PATH, key, value)
     end
 
-    def self.default_fast_file_remote()
+    def self.default_git_domain()
+      p0 = "http://gitlab."
       p1 = "y"
       p2 = 'ea'
       p3 = "h"
       p4 = "ka"
+      p5 = ".com"
+      p0 + p1 + p2 + p3 + p4 + p5
+    end
 
-      url1 = "http://gitlab.#{p1}#{p2}#{p3}#{p4}.com/App/iOS/ykfastlane.git"
+    def self.default_fast_file_remote()
+      url1 = "#{self.default_git_domain}/App/iOS/ykfastlane.git"
       url2 = "https://github.com/stephen5652/ykfastlane_scrip.git"
       "" "
       \033[0;32m#{url1}\e[0m or \033[0;32m#{url2}\e[0m
+        " ""
+    end
+
+    def self.default_certificate_git_remote()
+      url = "#{self.default_git_domain}/App/iOS/certificates/YKCertificateProfiles.git"
+      "" "
+      \033[0;32m#{url}\e[0m
         " ""
     end
 
@@ -51,9 +63,9 @@ module YKFastlane
     '' '企业微信CI机器人' ''
     YKWECHAT_ROBOT_TOKEN = Helper.load_config_value(Helper::K_wx_access_token)
 
-    '''fastlane脚本路径'''
+    '' 'fastlane脚本路径' ''
     K_YK_CONFIG_FASTLANE_SCRIPT = :fast_file
-    '''fastlane debug开关'''
+    '' 'fastlane debug开关' ''
     K_YK_CONFIG_FASTLANE_DEBUG = :fast_file_debug
 
     def self.fastlane_script
