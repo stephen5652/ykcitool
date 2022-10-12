@@ -15,11 +15,11 @@ module YKFastlane
     end
 
     desc 'platform_edit_user', "edit or update platform user"
-    option :pgyer_user, :type => :string, :aliases => :u, :required => true, :desc => 'pgyer 平台 user'
-    option :pgyer_api, :type => :string, :aliases => :a, :required => true, :desc => 'pgyer 平台 api, 配置链接: https://appleid.apple.com/account/manage'
-    option :fir_api_token, :type => :string, :aliases => :f, :required => true, :desc => 'fir 平台 api token'
-    option :apple_account, :type => :string, :aliases => :c, :required => true, :desc => 'apple id'
-    option :apple_password, :type => :string, :aliases => :p, :required => true, :desc => 'apple id 专属app密钥, 配置链接: https://appleid.apple.com/account/manage'
+    option :pgyer_user, :type => :string, :aliases => :u, :required => false, :desc => 'pgyer 平台 user'
+    option :pgyer_api, :type => :string, :aliases => :a, :required => false, :desc => 'pgyer 平台 api, 配置链接: https://appleid.apple.com/account/manage'
+    option :fir_api_token, :type => :string, :aliases => :f, :required => false, :desc => 'fir 平台 api token'
+    option :apple_account, :type => :string, :aliases => :c, :required => false, :desc => 'apple id'
+    option :apple_password, :type => :string, :aliases => :p, :required => false, :desc => 'apple id 专属app密钥, 配置链接: https://appleid.apple.com/account/manage'
 
     def platform_edit_user()
       puts "archive platform_edit_user"
