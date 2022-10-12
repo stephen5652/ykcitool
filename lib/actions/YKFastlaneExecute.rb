@@ -74,7 +74,7 @@ module YKFastlane
       end
 
       option_str = exchangOptionMapToStr(optionHash)
-      command = "fastlane #{lane_name} #{option_str}" unless option_str.blank?
+      command = "bundle exec fastlane #{lane_name} #{option_str}" unless option_str.blank?
 
       command_pre = "export LANG=en_US.UTF-8 && export LANGUAGE=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && which ruby"
       command_pre << " && cd #{YKFastlane::Helper.fastlane_script()}"

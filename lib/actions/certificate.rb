@@ -9,11 +9,39 @@ module YKFastlane
     option :user_name, :require => true, :type => :string, :aliases => :u, :desc => 'apple account'
     option :password, :require => true, :type => :string, :aliases => :p, :desc => 'apple account password'
     option :workspace, :require => false, :type => :string, :aliases => :w, :desc => 'p12 password'
-    option :bundle_ids, :require => false, :type => :string, :aliases => :b, :desc => "bundle identifier arr, separate by \",\" once more than one"
+    option :bundle_ids, :require => false, :type => :array, :aliases => :b, :desc => "bundle identifier arr, separate by \" \" once more than one, exaple: 123 456 234"
 
     def sync_apple_profile()
       puts "options:#{options}"
+      arr = options[:bundle_ids]
+      if arr != nil  && arr.count > 0
+        str = arr.join(",")
+        options[:bundle_ids] = str
+      end
+
+      puts "options_formatter:#{options}"
       code = YKFastlaneExecute.executeFastlaneLane("sync_apple_profile", options)
+      exit! code
+    end
+
+    desc "update_profile", "Update one profile"
+    option :profile_path, :require => true, :type => :array, :aliases => :p, :desc => 'profile path'
+
+    def update_profile()
+      p = Dir.pwd
+      result_arr = []
+      arr = options[:profile_path]
+      if arr != nil  && arr.count > 0
+        arr.each do |one|
+          path = File.join(p, one)
+          result_arr << path
+        end
+      end
+
+      str = result_arr.join(",")
+      options[:profile_path] = str unless str.blank?
+      puts "options:#{options}"
+      code = YKFastlaneExecute.executeFastlaneLane("update_profiles", options)
       exit! code
     end
 
@@ -25,18 +53,18 @@ module YKFastlane
       puts "options:#{options}"
 
       para = {}
-      para[:cer_path] = File.expand_path(options[:cer_path]) unless options[:cer_path]
+      para[:cer_path] = File.expand_path(options[:cer_path]) unless options[:cer_path].blank?
       para[:password] = options[:cer_password]
 
       code = YKFastlaneExecute.executeFastlaneLane("update_certificate_p12", para)
       exit! code
     end
 
-    desc "sync_cer", "sync certificate & profile git, and will overwrite the existed files once pass the remote_url"
+    desc "sync_git", "sync certificate & profile git, and will overwrite the existed files once pass the remote_url"
     option :remote_url, :require => false, :type => :string, :aliases => :r, :desc => 'git remote url'
 
-    def sync_cer()
-      puts "#{method(:sync_cer)}--options:#{options}"
+    def sync_git()
+      puts "#{method(:sync_git)}--options:#{options}"
       code = YKFastlaneExecute.executeFastlaneLane("sync_certificate_profile", options)
       exit! code
     end
