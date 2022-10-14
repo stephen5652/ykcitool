@@ -76,9 +76,16 @@ module YKFastlane
 
     def sync_git()
       puts "#{method(:sync_git)}--options:#{options}"
-      code = YKFastlaneExecute.executeFastlaneLane("sync_certificate_profile", options)
-      exit! code
+      self.sync_git_execute(options)
     end
+
+    no_commands {
+      def sync_git_execute(options)
+        puts "#{method(:sync_git_execute)}--options:#{options}"
+        code = YKFastlaneExecute.executeFastlaneLane("sync_certificate_profile", options)
+        exit! code
+      end
+    }
 
     desc "list_details", "list certificate details"
 

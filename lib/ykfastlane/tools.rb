@@ -90,16 +90,16 @@ module YKFastlane
       re
     end
 
-    def self.update_yml(qustion, path, key, value)
+    def self.update_yml(question, path, key, value)
       yml = load_yml(path)
 
       updateFlag = :yes
       if value.blank? #外部未传该参数需要通过问答形式，获取该参数
-        value = Tools.yk_ask("please input #{Tools::green(qustion)}")
+        value = Tools.yk_ask("please input #{Tools::green(question)}")
 
         if yml[key].blank? == false #需要确认修改
           puts "#{key} existed:#{yml[key]}"
-          updateFlag = Tools.yk_ask_with_answers("Are you sure to update #{self.green(qustion)}", ["Yes", "No"]).to_sym
+          updateFlag = Tools.yk_ask_with_answers("Are you sure to update #{self.green(question)}", ["Yes", "No"]).to_sym
         end
       end
       yml[key] = value unless updateFlag != :yes
@@ -145,11 +145,11 @@ module YKFastlane
     def self.git_commit(path, msg)
       git = Git::open(path)
       git.add()
-      curbranch = git.current_branch
+      cur_branch = git.current_branch
       begin
         git.commit("update:#{msg}")
       rescue Git::GitExecuteError => e
-        puts "commit update execption:#{e}"
+        puts "commit update exception:#{e}"
       end
 
       status = git.status()
@@ -158,7 +158,7 @@ module YKFastlane
         return 1
       else
         puts "git clean, work success"
-        git.push('origin', curbranch)
+        git.push('origin', cur_branch)
         return 0
       end
     end

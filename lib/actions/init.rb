@@ -58,10 +58,47 @@ module YKFastlane
 
     def config()
       puts "options:#{options}"
-      Helper.update_config('', Helper::K_fastfile_remote, options[:fastfile_remote]) unless options[:fastfile_remote].blank?
-      Helper.update_config('', Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
-      YKFastlane::ArchiveHelper.update_archive_map(Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
-      Helper.display_config_yml
+      self.config_execute(options)
+    end
+
+    no_commands {
+      def config_execute(options)
+        puts("#{method(:config_execute)}:#{options}")
+        Helper.update_config('', Helper::K_fastfile_remote, options[:fastfile_remote]) unless options[:fastfile_remote].blank?
+        Helper.update_config('', Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
+        YKFastlane::ArchiveHelper.update_archive_map(Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
+        Helper.display_config_yml
+      end
+    }
+
+    desc "all_config", "update all configurations"
+    long_desc <<-LONGDESC
+    本指令集只是一个门户指令，核心打包功能是通过调用fastlane脚本实现的。
+    需要配置： 
+    1. 配置fastlane脚本的远程仓库;
+    2. 配置任务失败时候的反馈企业微信机器人 [【企业微信机器人配置】](https://developer.work.weixin.qq.com/document/path/91770)
+    3. p12 与 profile 的托管仓库
+    4. fir, pgyer, tf 的账号口令
+    LONGDESC
+    option :fastfile_remote, :aliases => :l, :type => :string, :desc => "fastlane 文件的 git remote, 可用参数：#{Helper.default_fast_file_remote()}"
+    option :wx_access_token, :aliases => :t, :type => :string, :desc => "enterprise wechat robot token"
+
+    option :profile_remote_url, :aliases => :r, :require => false, :type => :string, :desc => "git remote url, example:#{YKFastlane::Helper.default_certificate_git_remote}"
+
+    option :pgyer_user, :aliases => :u, :type => :string, :required => false, :desc => 'pgyer 平台 user'
+    option :pgyer_api, :aliases => :a, :type => :string, :required => false, :desc => 'pgyer 平台 api, 配置链接: https://appleid.apple.com/account/manage'
+    option :fir_api_token, :aliases => :f, :type => :string, :required => false, :desc => 'fir 平台 api token'
+    option :apple_account, :aliases => :c, :type => :string, :required => false, :desc => 'apple id'
+    option :apple_password, :aliases => :p, :type => :string, :required => false, :desc => 'apple id 专属app密钥, 配置链接: https://appleid.apple.com/account/manage'
+
+    def all_config()
+      require 'actions/certificate'
+      require 'actions/archive'
+      puts("all_config:#{options}")
+
+      YKFastlane::Init.new().config_execute(options)
+      YKFastlane::Archive.new().platform_edit_user_execute(options)
+      YKFastlane::Certificate.new().sync_git_execute(options) unless options[:profile_remote_url].blank?
     end
 
     desc 'define_fast_execute_path', "指定fastlane文件的路径，此处是为了调试fastlane脚本"

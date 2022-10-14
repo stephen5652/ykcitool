@@ -23,32 +23,39 @@ module YKFastlane
 
     def platform_edit_user()
       puts "archive platform_edit_user"
-      if options[:pgyer_user].blank? == false && options[:pgyer_api].blank? == false # pgyer
-        pgyerinfo = {
-          K_archiveEnv_pgyer_api => options[:pgyer_api],
-          K_archiveEnv_pgyer_user => options[:pgyer_user]
-        }
-        self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_pgyer, pgyerinfo)
-        puts "archive update pgyer info success"
-      end
-
-      if options[:fir_api_token].blank? == false #fir
-        fir_info = {
-          K_archiveEnv_firApiToken => options[:fir_api_token]
-        }
-        self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_fir, fir_info)
-        puts "archive update fir info success"
-      end
-
-      if options[:apple_password].blank? == false && options[:apple_password].blank? == false # tf
-        tf_info = {
-          K_archiveEnv_tf_account => options[:apple_account],
-          K_archiveEnv_tf_password => options[:apple_password]
-        }
-        self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf, tf_info)
-        puts "archive update tf info success"
-      end
+      self.platform_edit_user_execute(options)
     end
+
+    no_commands {
+      def platform_edit_user_execute(options)
+        puts("#{method(:platform_edit_user_execute)}:#{options}")
+        if options[:pgyer_user].blank? == false && options[:pgyer_api].blank? == false # pgyer
+          pgyerinfo = {
+            K_archiveEnv_pgyer_api => options[:pgyer_api],
+            K_archiveEnv_pgyer_user => options[:pgyer_user]
+          }
+          self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_pgyer, pgyerinfo)
+          puts "archive update pgyer info success"
+        end
+
+        if options[:fir_api_token].blank? == false #fir
+          fir_info = {
+            K_archiveEnv_firApiToken => options[:fir_api_token]
+          }
+          self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_fir, fir_info)
+          puts "archive update fir info success"
+        end
+
+        if options[:apple_password].blank? == false && options[:apple_password].blank? == false # tf
+          tf_info = {
+            K_archiveEnv_tf_account => options[:apple_account],
+            K_archiveEnv_tf_password => options[:apple_password]
+          }
+          self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf, tf_info)
+          puts "archive update tf info success"
+        end
+      end
+    }
 
     desc "list_platform_user", "display the ipa bump platform user map"
 
@@ -57,6 +64,7 @@ module YKFastlane
     end
 
     desc "list_profiles", "print archive profiles info"
+
     def list_profiles()
       code = YKFastlaneExecute.executeFastlaneLane("list_profile_configs", options)
       exit(code)
