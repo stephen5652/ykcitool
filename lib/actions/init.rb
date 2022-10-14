@@ -83,13 +83,15 @@ module YKFastlane
     option :fastfile_remote, :aliases => :l, :type => :string, :desc => "fastlane 文件的 git remote, 可用参数：#{Helper.default_fast_file_remote()}"
     option :wx_access_token, :aliases => :t, :type => :string, :desc => "enterprise wechat robot token"
 
-    option :profile_remote_url, :aliases => :r, :require => false, :type => :string, :desc => "git remote url, example:#{YKFastlane::Helper.default_certificate_git_remote}"
+    option :profile_remote_url, :aliases => :r, :require => false, :type => :string, :desc => "profile & certificate git remote url, example:#{YKFastlane::Helper.default_certificate_git_remote}"
 
     option :pgyer_user, :aliases => :u, :type => :string, :required => false, :desc => 'pgyer 平台 user'
     option :pgyer_api, :aliases => :a, :type => :string, :required => false, :desc => 'pgyer 平台 api, 配置链接: https://appleid.apple.com/account/manage'
-    option :fir_api_token, :aliases => :f, :type => :string, :required => false, :desc => 'fir 平台 api token'
+
     option :apple_account, :aliases => :c, :type => :string, :required => false, :desc => 'apple id'
     option :apple_password, :aliases => :p, :type => :string, :required => false, :desc => 'apple id 专属app密钥, 配置链接: https://appleid.apple.com/account/manage'
+
+    option :fir_api_token, :aliases => :f, :type => :string, :required => false, :desc => 'fir 平台 api token'
 
     def all_config()
       require 'actions/certificate'
