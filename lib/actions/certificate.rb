@@ -28,7 +28,7 @@ module YKFastlane
 
       puts "options_formatter:#{options}"
       code = YKFastlaneExecute.executeFastlaneLane("sync_apple_profile", options)
-      exit! code
+      exit! code unless  code == 0
     end
 
     desc "update_profile", "Update one profile"
@@ -50,7 +50,7 @@ module YKFastlane
       options[:profile_path] = str unless str.blank?
       puts "options:#{options}"
       code = YKFastlaneExecute.executeFastlaneLane("update_profiles", options)
-      exit! code
+      exit! code unless  code == 0
     end
 
     desc "update_cer", "edit certificate & profile for project schem or target"
@@ -68,32 +68,28 @@ module YKFastlane
       para[:password] = options[:cer_password]
 
       code = YKFastlaneExecute.executeFastlaneLane("update_certificate_p12", para)
-      exit! code
+      exit! code unless  code == 0
     end
 
-    desc "sync_git", "sync certificate & profile git, and will overwrite the existed files once pass the remote_url"
-    option :remote_url, :require => false, :type => :string, :aliases => :r, :desc => "git remote url, example:#{YKFastlane::Helper.default_certificate_git_remote}"
-
+    desc "sync_git", "sync certificate & profile git"
     def sync_git()
       puts "#{method(:sync_git)}--options:#{options}"
-      self.sync_git_execute(options)
+      self.sync_git_execute({})
     end
 
     no_commands {
       def sync_git_execute(options)
         puts "#{method(:sync_git_execute)}--options:#{options}"
         code = YKFastlaneExecute.executeFastlaneLane("sync_certificate_profile", options)
-        exit! code
+        exit! code unless  code == 0
+      end
+
+      def list_details_execute()
+        puts("certificate list_details")
+        code = YKFastlaneExecute.executeFastlaneLane("list_profile_certificate_config", options)
+        exit! code unless  code == 0
       end
     }
-
-    desc "list_details", "list certificate details"
-
-    def list_details()
-      puts("certificate list_details")
-      code = YKFastlaneExecute.executeFastlaneLane("list_profile_certificate_config", options)
-      exit! code
-    end
 
   end
 end

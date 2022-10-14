@@ -4,23 +4,26 @@ iOS 通用打包工具的终端门户工具
 本指令集适用与ruby 2.7.5 ~ 3.0.3
 
 - [Ykfastlane](#ykfastlane)
-    - [环境配置](#环境配置)
-    - [ykfastlane基础参数配置](#ykfastlane基础参数配置)
-    - [证书配置](#证书配置)
-      - [配置证书管理仓库](#配置证书管理仓库)
-      - [同步git仓库中证书](#同步git仓库中证书)
-      - [添加本地P2](#添加本地p2)
-      - [添加本机profile](#添加本机profile)
-      - [同步苹果后台profile](#同步苹果后台profile)
-    - [打包功能](#打包功能)
-      - [打包配置](#打包配置)
-      - [xcworkspace 字段说明](#xcworkspace-字段说明)
-      - [打包指令](#打包指令)
-        - [fir平台](#fir平台)
-        - [蒲公英平台](#蒲公英平台)
-        - [test flight 平台](#test-flight-平台)
+  - [环境配置](#环境配置)
+  - [ykfastlane基础参数配置](#ykfastlane基础参数配置)
+    - [基础参数配置 帮助](#基础参数配置-帮助)
+    - [基础参数配置 样例](#基础参数配置-样例)
+  - [同步基础配置](#同步基础配置)
+    - [同步基础配置 帮助](#同步基础配置-帮助)
+      - [同步基础配置 样例](#同步基础配置-样例)
+  - [证书管理](#证书管理)
+    - [证书仓库同步](#证书仓库同步)
+    - [添加本地P2](#添加本地p2)
+    - [添加本机profile](#添加本机profile)
+    - [同步苹果后台profile](#同步苹果后台profile)
+  - [打包功能](#打包功能)
+    - [xcworkspace 字段说明](#xcworkspace-字段说明)
+    - [打包指令](#打包指令)
+      - [fir平台](#fir平台)
+      - [蒲公英平台](#蒲公英平台)
+      - [test flight 平台](#test-flight-平台)
 
-### 环境配置
+## 环境配置
 
 - ruby环境配置
 
@@ -91,33 +94,103 @@ iOS 通用打包工具的终端门户工具
     gem install ykfastlane
     ```
 
-### ykfastlane基础参数配置
+## ykfastlane基础参数配置
 
-- 配置基础参数
+### 基础参数配置 帮助
   
-  - 帮助指令
+```shell
+ykfastlane init edit-configs -h
+```
+
+or
+
+```shell
+ykfastlane init edit-configs --help
+```
+
+<font size=2 style="font-weight:bold;font-style:italic;">参数说明:</font>
+
+- --fastfile-remote 执行文件仓库
   
-    ```shell
-    ykfastlane init config --help
-    ```
+  - 本脚本只是门户指令集， 功能核心是fastlane执行文件
+  - fastlane执行文件在单独仓库托管，帮助指令提供了可用的两个仓库
+  - 配置此参数的同时，会自动下载fastlane执行文件
 
-  - 指令样例
+- --profile-remote-url 证书托管仓库
+  
+  - 打包功能需要用到 p12 与 mobileprovision
+  - p12 & mobileprovision 由git仓库托管, 需使用者配置该仓库
+  - 帮助指令提供了我司已配置的仓库，用于管理我司的相关 p12 与 mobileprovison
+  - 配置此参数的同时，会自动下载仓库，并安装 p12 和 mobileprovision
 
-    帮助指令提供了可用的两个 git url。
+- 发包平台口令
+  
+  - 平台支持配置全局统一的发包平台参数
+  - --pgyer-user & --pgyer-api --> 蒲公英平台参数
+  - --apple-account & --apple-password  -->  tf【Apple test flight】平台参数
+  - --fir-api-token --> fir im 平台参数
 
-    ```shell
-    ykfastlane init config -t 5ef50d9f-6426-4c4c-94f8-f08a4f0e1611 -f xxxx
-    ```
+- 企业微信机器人
+  
+  - --wx-access-token --> 平台支持配置统一的企业微信机器人
+  
+<font size=2 style="font-weight:bold;font-style:italic;">参数使用细节:</font>
 
-- 安装fastlane脚本
+- 参数都是可选项， 即【可以一次性配置所有参数，也可以只配置部分参数】
+- 如果对应平台已经配置过，再次执行本指令，会覆盖已配置的参数
 
-  ```shell
-  ykfastlane init sync-script
-  ```
+### 基础参数配置 样例
 
-### 证书配置
+```shell
+    ykfastlane init edit-configs -l https://gitlab.xxx.com/xxx/xxx/xxx.git -t xxxx-xxxx-xxx -r https://gitlab.xxx.com/xxx/xxx/xxx.git -u xxxxx -a xxxxx -c xxxxxx
+-p xxxxxx -f xxxxxx
+```
 
-#### 配置证书管理仓库
+## 同步基础配置
+
+### 同步基础配置 帮助
+
+```shell
+ykfastlane init execute_configs -h
+```
+
+or
+
+```shell
+ykfastlane init execute_configs --help
+```
+
+<font size=2 style="font-weight:bold;font-style:italic;">参数说明:</font>
+
+- --all --> 同时更新fastlane仓库 和 certificate-profile 仓库
+- --script --> 只更新fastlane仓库
+- --profile --> 只更新 certificate & profile 仓库
+
+<font size=2 style="font-weight:bold;font-style:italic;">参数使用细节:</font>
+
+- 参数都是可选项，非必需
+- --all 参数会覆盖其余参数
+- --no-xxx 可以不使用, 只要不传--xxxx即可
+
+#### 同步基础配置 样例
+
+- fastlane 执行文件 和 certificate & profile 都有独立的git仓库管理；可一次性更新所有配置,也可以仅更新某一项配置。
+
+- 更新 fastlane 执行文件仓库
+  
+  > ```shell
+  > ykfastlane init execute_configs -s
+  > ```
+
+- 更新 certificate & profile 仓库
+
+  > ```shell
+  > ykfastlane init execute_configs -p
+  >```
+
+## 证书管理
+
+### 证书仓库同步
 
 - 帮助指令：
 
@@ -125,22 +198,13 @@ iOS 通用打包工具的终端门户工具
   ykfastlane certificate sync-git --help
   ```
 
-- 指令样例
-  
-  help指令会提供默认的git url，也可以自己创建；
-  sync-git同时会同步certificate 和 mobileprovision file 。
+- 指令样例【该指令无参数】
 
   ```shell
-  ykfastlane certificate sync-git -r xxxxx
+  ykfastlane certificate sync-git
   ```
 
-#### 同步git仓库中证书
-
-```shell
-ykfastlane certificate sync-git
-```
-
-#### 添加本地P2
+### 添加本地P2
 
 - 帮助指令
   
@@ -156,7 +220,7 @@ ykfastlane certificate sync-git
   ykfastlane certificate update_cer -p xxxxx -c xxx/xxx/xxx/xxx.p12
   ```
 
-#### 添加本机profile
+### 添加本机profile
   
 - 帮助指令
   
@@ -177,7 +241,7 @@ ykfastlane certificate sync-git
   ykfastlane certificate update_profile -p 123 456 "7 8 9"
   ```
 
-#### 同步苹果后台profile
+### 同步苹果后台profile
 
 - 帮助指令
   
@@ -204,27 +268,11 @@ ykfastlane certificate sync-git
   ykfastlane certificate sync_apple_profile -u xxxxxxx -p xxxxx -b xxxxx "xxx xxx" "1234" -w ./
   ```
 
-### 打包功能
+## 打包功能
 
-#### 打包配置
-
-- 配置发包平台参数
-
-  - 帮助指令
+### xcworkspace 字段说明
   
-    ```shell
-    ykfastlane archive platform_edit_user --help
-    ```
-
-  - 指令样例
-  
-    ```shell
-    ykfastlane archive platform_edit_user -u xxxxx -a xxxxx -f xxxxx -c xxxxx -p xxxxx --verbose
-    ```
-
-#### xcworkspace 字段说明
-  
-#### 打包指令
+### 打包指令
 
 - 打包指令帮助
   
@@ -232,7 +280,7 @@ ykfastlane certificate sync-git
   ykfastlane archive --help
   ```
   
-##### fir平台
+#### fir平台
 
 - 帮助指令
 
@@ -248,7 +296,7 @@ ykfastlane certificate sync-git
   ykfastlane archive fir -s ShuabaoQ -e enterprise -x "123/xxx.xcworkspace"
   ```
 
-##### 蒲公英平台
+#### 蒲公英平台
 
 - 帮助指令
 
@@ -264,7 +312,7 @@ ykfastlane certificate sync-git
   ykfastlane archive pgyer -s YKLeXiangBan  -e enterprise -x "123/xxx.xcworkspace"
   ```
 
-##### test flight 平台
+#### test flight 平台
 
 - 帮助指令
 

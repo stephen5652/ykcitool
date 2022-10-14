@@ -14,18 +14,6 @@ module YKFastlane
       YKFastlane::Tools.UI(YKARCHIVE_PRODUCT_PATH)
     end
 
-    desc 'platform_edit_user', "edit or update platform user"
-    option :pgyer_user, :type => :string, :aliases => :u, :required => false, :desc => 'pgyer 平台 user'
-    option :pgyer_api, :type => :string, :aliases => :a, :required => false, :desc => 'pgyer 平台 api, 配置链接: https://appleid.apple.com/account/manage'
-    option :fir_api_token, :type => :string, :aliases => :f, :required => false, :desc => 'fir 平台 api token'
-    option :apple_account, :type => :string, :aliases => :c, :required => false, :desc => 'apple id'
-    option :apple_password, :type => :string, :aliases => :p, :required => false, :desc => 'apple id 专属app密钥, 配置链接: https://appleid.apple.com/account/manage'
-
-    def platform_edit_user()
-      puts "archive platform_edit_user"
-      self.platform_edit_user_execute(options)
-    end
-
     no_commands {
       def platform_edit_user_execute(options)
         puts("#{method(:platform_edit_user_execute)}:#{options}")
@@ -57,19 +45,6 @@ module YKFastlane
       end
     }
 
-    desc "list_platform_user", "display the ipa bump platform user map"
-
-    def list_platform_user()
-      self.list_user_map()
-    end
-
-    desc "list_profiles", "print archive profiles info"
-
-    def list_profiles()
-      code = YKFastlaneExecute.executeFastlaneLane("list_profile_configs", options)
-      exit(code)
-    end
-
     desc "upload_tf", "upload ipa to test flight, will send failed message to enterprise robot \'#{Helper::YKWECHAT_ROBOT_TOKEN}\'"
     option :ipa, :required => true, :type => :string, :aliases => :i, :desc => 'scheme name'
     option :user_name, :type => :string, :aliases => :u, :desc => 'apple id, 如果不传递，则使用env配置的'
@@ -85,7 +60,7 @@ module YKFastlane
       end
 
       code = YKFastlaneExecute.executeFastlaneLane("upload_ipa_to_tf", options)
-      exit(code)
+      exit(code) unless code == 0
     end
 
     desc "tf", "archive ios project and upload to TF, will send failed message to enterprise robot \'#{Helper::YKWECHAT_ROBOT_TOKEN}\'"
@@ -109,7 +84,7 @@ module YKFastlane
       end
 
       code = YKFastlaneExecute.executeFastlaneLane("archive_tf", options)
-      exit(code)
+      exit(code) unless code == 0
     end
 
     desc "pgyer", "archive ios project and upload to pgyer, will send failed message to enterprise robot \'#{Helper::YKWECHAT_ROBOT_TOKEN}\'"
@@ -121,7 +96,7 @@ module YKFastlane
     option :xcworkspace, :type => :string, :aliases => :x, :desc => '.xcworkspace 文件相对于指令工作目录的相对路径, 如果.xcworkspace文件在工程根目录，则可以不传递此参数'
     option :cocoapods, :type => :numeric, :aliases => :c, :desc => '是否需要执行pod install, 默认不执行pod install 指令, 1:执行， 非1：不执行'
     option :flutter_directory, :type => :string, :aliases => :d, :desc => '如果有flutter混编, 此参数是 flutter项目的相对路径.'
-    option :export, :type => :string, :aliases => :e, :desc => '包的类型, app-store, validation,ad-hoc, package, enterprise, development, developer-id, mac-application, 默认为enterprise'
+    option :export, :type => :string, :aliases => :e, :desc => '包的类型, app-store, ad-hoc, enterprise 默认为enterprise'
 
     def pgyer()
       puts "archive_pgyer"
@@ -132,7 +107,7 @@ module YKFastlane
       end
 
       code = YKFastlaneExecute.executeFastlaneLane("archive_pgyer", options)
-      exit(code)
+      exit(code) unless code == 0
     end
 
     desc "fir", "archive ios project and upload to fir, will send failed message to enterprise robot \'#{Helper::YKWECHAT_ROBOT_TOKEN}\'"
@@ -143,7 +118,7 @@ module YKFastlane
     option :xcworkspace, :type => :string, :aliases => :x, :desc => '.xcworkspace 文件相对于指令工作目录的相对路径, 如果.xcworkspace文件在工程根目录，则可以不传递此参数'
     option :cocoapods, :type => :numeric, :aliases => :c, :desc => '是否需要执行pod install, 默认不执行pod install 指令, 1:执行， 非1：不执行'
     option :flutter_directory, :type => :string, :aliases => :d, :desc => '如果有flutter混编, 此参数是 flutter项目的相对路径.'
-    option :export, :type => :string, :aliases => :e, :desc => '包的类型, 包的类型, app-store, validation,ad-hoc, package, enterprise, development, developer-id, mac-application, 默认为enterprise'
+    option :export, :type => :string, :aliases => :e, :desc => '包的类型, app-store, ad-hoc, enterprise 默认为enterprise'
 
     def fir()
       puts "archive_fir"
@@ -153,7 +128,18 @@ module YKFastlane
       end
 
       code = YKFastlaneExecute.executeFastlaneLane("archive_fir", options)
-      exit(code)
+      exit(code) unless code == 0
+    end
+
+    no_commands do
+      def list_platform_user_execute()
+        self.list_user_map()
+      end
+
+      def list_profiles_execute()
+        code = YKFastlaneExecute.executeFastlaneLane("list_profile_configs", options)
+        exit(code) unless code == 0
+      end
     end
 
   end

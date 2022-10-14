@@ -23,8 +23,8 @@ module YKFastlane
   class YKFastlaneExecute
     def self.executeCommand(commandShell_pre, commandShell, workTitle)
       excuteStr = " "
-      excuteStr << "#{commandShell_pre} && " unless commandShell_pre.blank?
-      excuteStr << commandShell unless commandShell.blank?
+      excuteStr << "#{commandShell_pre}" unless commandShell_pre.blank?
+      excuteStr << " && #{commandShell}" unless commandShell.blank?
 
       puts "START COMMAND:#{excuteStr}"
       code = 1

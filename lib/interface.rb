@@ -20,24 +20,39 @@ module YKFastlane
       true
     end
 
-    desc "lanes", 'list all lanes'
-
-    def lanes()
-      puts "lanes"
-      code = YKFastlane::YKFastlaneExecute.executeFastlaneLane("lanes", options)
-      exit(code)
-    end
+    # desc "lanes", 'list all lanes'
+    #
+    # def lanes()
+    #   puts "lanes"
+    #   code = YKFastlane::YKFastlaneExecute.executeFastlaneLane("lanes", options)
+    #   exit(code)
+    # end
 
     desc "archive", "archive functions"
     subcommand "archive", YKFastlane::Archive
 
-    desc "pod", "cocoapods functions"
-    subcommand "pod", YKFastlane::Pod
+    # desc "pod", "cocoapods functions"
+    # subcommand "pod", YKFastlane::Pod
 
     desc "init", "init ykfastlane"
     subcommand "init", YKFastlane::Init
 
     desc "certificate", "manager ios certificate & profile files"
     subcommand "certificate", YKFastlane::Certificate
+
+    desc  "update", "update ykfastlane"
+    def update()
+      require 'actions/YKFastlaneExecute'
+      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykfastlane -a -x", "gem install ykfastlane", "")
+      exit! code unless code == 0
+    end
+
+    desc "uninstall", "uninstall self"
+    def uninstall()
+      require 'actions/YKFastlaneExecute'
+      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykfastlane -a -x", "", "")
+      exit! code unless code == 0
+    end
+
   end
 end
