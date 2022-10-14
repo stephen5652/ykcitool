@@ -1,16 +1,16 @@
-# Ykfastlane
+# Ykfastlane - v0.3.13
 
 iOS 通用打包工具的终端门户工具
 本指令集适用与ruby 2.7.5 ~ 3.0.3
 
-- [Ykfastlane](#ykfastlane)
+- [Ykfastlane - v0.3.13](#ykfastlane---v0313)
   - [环境配置](#环境配置)
   - [ykfastlane基础参数配置](#ykfastlane基础参数配置)
     - [基础参数配置 帮助](#基础参数配置-帮助)
     - [基础参数配置 样例](#基础参数配置-样例)
   - [同步基础配置](#同步基础配置)
     - [同步基础配置 帮助](#同步基础配置-帮助)
-      - [同步基础配置 样例](#同步基础配置-样例)
+    - [同步基础配置 样例](#同步基础配置-样例)
   - [证书管理](#证书管理)
     - [证书仓库同步](#证书仓库同步)
     - [添加本地P2](#添加本地p2)
@@ -22,6 +22,9 @@ iOS 通用打包工具的终端门户工具
       - [fir平台](#fir平台)
       - [蒲公英平台](#蒲公英平台)
       - [test flight 平台](#test-flight-平台)
+  - [升级 与 卸载](#升级-与-卸载)
+    - [升级](#升级)
+    - [卸载](#卸载)
 
 ## 环境配置
 
@@ -162,7 +165,7 @@ ykfastlane init execute_configs --help
 
 <font size=2 style="font-weight:bold;font-style:italic;">参数说明:</font>
 
-- --all --> 同时更新fastlane仓库 和 certificate-profile 仓库
+- --all --> 同时更新 fastlane 仓库 和 certificate-profile 仓库
 - --script --> 只更新fastlane仓库
 - --profile --> 只更新 certificate & profile 仓库
 
@@ -172,7 +175,7 @@ ykfastlane init execute_configs --help
 - --all 参数会覆盖其余参数
 - --no-xxx 可以不使用, 只要不传--xxxx即可
 
-#### 同步基础配置 样例
+### 同步基础配置 样例
 
 - fastlane 执行文件 和 certificate & profile 都有独立的git仓库管理；可一次性更新所有配置,也可以仅更新某一项配置。
 
@@ -327,3 +330,17 @@ ykfastlane init execute_configs --help
   ```shell
   ykfastlane archive tf -s YKLeXiangBan  -e enterprise -x "123/xxx.xcworkspace"
   ```
+
+## 升级 与 卸载
+
+### 升级
+
+```shell
+ykfastlane update
+```
+
+### 卸载
+
+```shell
+ykfastlane uninstall
+```
