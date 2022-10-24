@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 #
 
-puts "call ykfastlane"
+puts "call ykcitool"
 
 lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
 $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
@@ -14,7 +14,7 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 # require "pry"
 # Pry.start
 require 'interface'
-puts "call ykfastlane:#{YKFastlane::VERSION}"
+puts "call ykcitool:#{YKFastlane::VERSION}"
 
-puts "ykfastlane start"
+puts "ykcitool start"
 YKFastlane::Interface.start(ARGV)

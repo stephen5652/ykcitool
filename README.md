@@ -24,7 +24,7 @@ ruby版本管理有两种方式 rvm 与 rbenv, 建议使用rbenv.
 - 安装ykfastlane
 
 ```shell
-gem install ykfastlane
+gem install ykcitool
 ```
 
 - 做基础配置
@@ -38,7 +38,7 @@ gem install ykfastlane
 
 基础配置帮助指令
 ```shell
-ykfastlane init --help
+ykcitool init --help
 ```
 - 设置基础配置  -- ykfastlane init config
 
@@ -55,7 +55,7 @@ ykfastlane init --help
   
   用例：
     ```shell
-    ykfastlane init config -f https://github.com/stephen5652/ykfastlane_scrip.git -t 5ef50d9f-6426-4c4c-94f8-xxxxxxxxxxxx 
+    ykcitool init config -f https://github.com/stephen5652/ykfastlane_scrip.git -t 5ef50d9f-6426-4c4c-94f8-xxxxxxxxxxxx 
     ```
 
 - 显示基础配置 -- ykfastlane init list_config
@@ -64,7 +64,7 @@ ykfastlane init --help
 
     用例
     ```shell
-    ykfastlane init list_config
+    ykcitool init list_config
     ```
 
 - 同步fastlane脚本 -- ykfastlane init sync_script
@@ -73,7 +73,7 @@ ykfastlane init --help
 
     用例：
     ```shell
-    ykfastlane init sync_script
+    ykcitool init sync_script
     ```
 
 ### 证书管理
@@ -100,14 +100,14 @@ iOS证书管理有多种方案：
 
     指令
     ```shell
-    ykfastlane certificate edit_config -r http://xxx.xxx.com/xxx.git
+    ykcitool certificate edit_config -r http://xxx.xxx.com/xxx.git
     ```
   
     指令集支持显示证书仓库配置
 
     指令：
     ```shell
-    ykfastlane certificate list_config
+    ykcitool certificate list_config
     ```
 
 - 管理员更新证书
@@ -117,7 +117,7 @@ iOS证书管理有多种方案：
     指令：
 
     ```shell
-    ykfastlane certificate update_cer -c /Users/xxx/xxx/xxxx.p12 -p xxxx
+    ykcitool certificate update_cer -c /Users/xxx/xxx/xxxx.p12 -p xxxx
     ```
 
 - 管理员更新描述文件
@@ -127,7 +127,7 @@ iOS证书管理有多种方案：
     指令：
 
     ```shell
-    ykfastlane certificate update_profile -p /Users/xxx/xxx/xxx.mobileprovision
+    ykcitool certificate update_profile -p /Users/xxx/xxx/xxx.mobileprovision
     ```
 
 - 同步证书和描述文件
@@ -137,7 +137,7 @@ iOS证书管理有多种方案：
     指令：
 
     ```shell
-    ykfastlane certificate sync-cer
+    ykcitool certificate sync-cer
     ```
 
 - 显示证书和描述文件
@@ -147,7 +147,7 @@ iOS证书管理有多种方案：
     指令：
 
     ```shell
-    ykfastlane certificate list_cers
+    ykcitool certificate list_cers
     ```
 
 - 缺点
@@ -168,7 +168,7 @@ iOS证书管理有多种方案：
   - 打包指令帮助：
 
     ```shell
-    ykfastlane archive fire --help
+    ykcitool archive fire --help
     ```
   
   - 使用方式
@@ -177,7 +177,7 @@ iOS证书管理有多种方案：
 
       > 在 .xcworkspace 同级打包
       > ```shell
-      > ykfastlane archive fire -s XXXX -f xxxx -e enterprise -n "iOS测试包" -w xxxx
+      > ykcitool archive fire -s XXXX -f xxxx -e enterprise -n "iOS测试包" -w xxxx
       > ```
 
       > 在其他目录打包：
@@ -185,7 +185,7 @@ iOS证书管理有多种方案：
       如果终端工作路径在 .xcworkspace同级目录，则可以不使用参数 -x </br>
       如果不用专门通知企业微信业务群，可以不指定 -w 参数，会默认使用env中配置的企微机器人。</br>
       > ```shell
-      > ykfastlane archive fire -s XXXX -x ～/users/xxx/xxx/xxxx.xcworkspace -f xxxx -e enterprise -n "iOS测试包" -w xxxx
+      > ykcitool archive fire -s XXXX -x ～/users/xxx/xxx/xxxx.xcworkspace -f xxxx -e enterprise -n "iOS测试包" -w xxxx
       > ```
     
 - 蒲公英打包
@@ -198,7 +198,7 @@ iOS证书管理有多种方案：
     由于TF打包一定是app store包，所以此指令没有 -e 参数，无法指定包类型
     - 打包指令帮助：
       ```shell
-      ykfastlane archive tf --help
+      ykcitool archive tf --help
       ```
   
     - 使用方式
@@ -212,7 +212,7 @@ iOS证书管理有多种方案：
     
       指令范例：
       ```shell
-      ykfastlane archive tf -s XXX -u xxxx.@xxx.com  -p xxxx-xxxx-xxxx-xxxx -n iOS测试包 -w xxxxx -c 1
+      ykcitool archive tf -s XXX -u xxxx.@xxx.com  -p xxxx-xxxx-xxxx-xxxx -n iOS测试包 -w xxxxx -c 1
       ```
 
 ## 异常情况处理

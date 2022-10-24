@@ -3,14 +3,14 @@
 require_relative "lib/ykfastlane/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "ykfastlane"
+  spec.name = "ykcitool"
   spec.version = YKFastlane::VERSION
   spec.authors = ["stephen.chen"]
   spec.email = ["stephen5652@126.com"]
 
   spec.summary = "iOS 打包工具."
   spec.description = "基于fastlane的 iOS 打包工具."
-  spec.homepage = "https://github.com/stephen5652/ykfastlane.git"
+  spec.homepage = "https://github.com/stephen5652/ykcitool.git"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 

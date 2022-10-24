@@ -94,7 +94,7 @@ iOS 通用打包工具的终端门户工具
   - 安装ykfastlane
 
     ```shell
-    gem install ykfastlane
+    gem install ykcitool
     ```
 
 ## ykfastlane基础参数配置
@@ -102,13 +102,13 @@ iOS 通用打包工具的终端门户工具
 ### 基础参数配置 帮助
   
 ```shell
-ykfastlane init edit-configs -h
+ykcitool init edit-configs -h
 ```
 
 or
 
 ```shell
-ykfastlane init edit-configs --help
+ykcitool init edit-configs --help
 ```
 
 <font size=2 style="font-weight:bold;font-style:italic;">参数说明:</font>
@@ -145,7 +145,7 @@ ykfastlane init edit-configs --help
 ### 基础参数配置 样例
 
 ```shell
-    ykfastlane init edit-configs -l https://gitlab.xxx.com/xxx/xxx/xxx.git -t xxxx-xxxx-xxx -r https://gitlab.xxx.com/xxx/xxx/xxx.git -u xxxxx -a xxxxx -c xxxxxx
+    ykcitool init edit-configs -l https://gitlab.xxx.com/xxx/xxx/xxx.git -t xxxx-xxxx-xxx -r https://gitlab.xxx.com/xxx/xxx/xxx.git -u xxxxx -a xxxxx -c xxxxxx
 -p xxxxxx -f xxxxxx
 ```
 
@@ -154,13 +154,13 @@ ykfastlane init edit-configs --help
 ### 同步基础配置 帮助
 
 ```shell
-ykfastlane init execute_configs -h
+ykcitool init execute_configs -h
 ```
 
 or
 
 ```shell
-ykfastlane init execute_configs --help
+ykcitool init execute_configs --help
 ```
 
 <font size=2 style="font-weight:bold;font-style:italic;">参数说明:</font>
@@ -182,13 +182,13 @@ ykfastlane init execute_configs --help
 - 更新 fastlane 执行文件仓库
   
   > ```shell
-  > ykfastlane init execute_configs -s
+  > ykcitool init execute_configs -s
   > ```
 
 - 更新 certificate & profile 仓库
 
   > ```shell
-  > ykfastlane init execute_configs -p
+  > ykcitool init execute_configs -p
   >```
 
 ## 证书管理
@@ -198,13 +198,13 @@ ykfastlane init execute_configs --help
 - 帮助指令：
 
   ```shell
-  ykfastlane certificate sync-git --help
+  ykcitool certificate sync-git --help
   ```
 
 - 指令样例【该指令无参数】
 
   ```shell
-  ykfastlane certificate sync-git
+  ykcitool certificate sync-git
   ```
 
 ### 添加本地P2
@@ -212,7 +212,7 @@ ykfastlane init execute_configs --help
 - 帮助指令
   
   ```shell
-  ykfastlane certificate update_cer --help
+  ykcitool certificate update_cer --help
   ```
 
 - 添加p12
@@ -220,7 +220,7 @@ ykfastlane init execute_configs --help
   cer_path: 可以是绝对路径， 也可以是当前终端工作路径的相对路径。
 
   ```shell
-  ykfastlane certificate update_cer -p xxxxx -c xxx/xxx/xxx/xxx.p12
+  ykcitool certificate update_cer -p xxxxx -c xxx/xxx/xxx/xxx.p12
   ```
 
 ### 添加本机profile
@@ -228,7 +228,7 @@ ykfastlane init execute_configs --help
 - 帮助指令
   
   ```shell
-  ykfastlane certificate update_profile --help
+  ykcitool certificate update_profile --help
   ```
 
 - 指令样例
@@ -241,7 +241,7 @@ ykfastlane init execute_configs --help
   > - 某一个profile, 如果名称或路径存在空格, 需要使用英文双引号【""】包括
   
   ```shell
-  ykfastlane certificate update_profile -p 123 456 "7 8 9"
+  ykcitool certificate update_profile -p 123 456 "7 8 9"
   ```
 
 ### 同步苹果后台profile
@@ -249,7 +249,7 @@ ykfastlane init execute_configs --help
 - 帮助指令
   
   ```shell
-  ykfastlane certificate sync_apple_profile --help
+  ykcitool certificate sync_apple_profile --help
   ```
 
 - 指令样例
@@ -268,7 +268,7 @@ ykfastlane init execute_configs --help
   > - 每个bundleId 使用英文双引号包括。
 
   ```shell
-  ykfastlane certificate sync_apple_profile -u xxxxxxx -p xxxxx -b xxxxx "xxx xxx" "1234" -w ./
+  ykcitool certificate sync_apple_profile -u xxxxxxx -p xxxxx -b xxxxx "xxx xxx" "1234" -w ./
   ```
 
 ## 打包功能
@@ -280,7 +280,7 @@ ykfastlane init execute_configs --help
 - 打包指令帮助
   
   ```shell
-  ykfastlane archive --help
+  ykcitool archive --help
   ```
   
 #### fir平台
@@ -288,7 +288,7 @@ ykfastlane init execute_configs --help
 - 帮助指令
 
   ```shell
-  ykfastlane archive fir --help
+  ykcitool archive fir --help
   ```
 
 - 指令样例 【当前终端路径是工程目录】
@@ -296,7 +296,7 @@ ykfastlane init execute_configs --help
   > xcworkspace 字段使用方式，参考 [xcworkspace 字段说明](#xcworkspace-字段说明)
 
   ```shell
-  ykfastlane archive fir -s ShuabaoQ -e enterprise -x "123/xxx.xcworkspace"
+  ykcitool archive fir -s ShuabaoQ -e enterprise -x "123/xxx.xcworkspace"
   ```
 
 #### 蒲公英平台
@@ -304,7 +304,7 @@ ykfastlane init execute_configs --help
 - 帮助指令
 
   ```shell
-  ykfastlane archive pgyer --help
+  ykcitool archive pgyer --help
   ```
 
 - 指令样例 【当前终端路径是工程目录】
@@ -312,7 +312,7 @@ ykfastlane init execute_configs --help
   > xcworkspace 字段使用方式，参考 [xcworkspace 字段说明](#xcworkspace-字段说明)
 
   ```shell
-  ykfastlane archive pgyer -s YKLeXiangBan  -e enterprise -x "123/xxx.xcworkspace"
+  ykcitool archive pgyer -s YKLeXiangBan  -e enterprise -x "123/xxx.xcworkspace"
   ```
 
 #### test flight 平台
@@ -320,7 +320,7 @@ ykfastlane init execute_configs --help
 - 帮助指令
 
   ```shell
-  ykfastlane archive tf --help
+  ykcitool archive tf --help
   ```
 
 - 指令样例
@@ -328,7 +328,7 @@ ykfastlane init execute_configs --help
   > xcworkspace 字段使用方式，参考 [xcworkspace 字段说明](#xcworkspace-字段说明)
 
   ```shell
-  ykfastlane archive tf -s YKLeXiangBan  -e enterprise -x "123/xxx.xcworkspace"
+  ykcitool archive tf -s YKLeXiangBan  -e enterprise -x "123/xxx.xcworkspace"
   ```
 
 ## 升级 与 卸载
@@ -336,11 +336,11 @@ ykfastlane init execute_configs --help
 ### 升级
 
 ```shell
-ykfastlane update
+ykcitool update
 ```
 
 ### 卸载
 
 ```shell
-ykfastlane uninstall
+ykcitool uninstall
 ```

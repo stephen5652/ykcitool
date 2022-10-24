@@ -34,23 +34,23 @@ module YKFastlane
     # desc "pod", "cocoapods functions"
     # subcommand "pod", YKFastlane::Pod
 
-    desc "init", "init ykfastlane"
+    desc "init", "init ykcitool"
     subcommand "init", YKFastlane::Init
 
     desc "certificate", "manager ios certificate & profile files"
     subcommand "certificate", YKFastlane::Certificate
 
-    desc  "update", "update ykfastlane"
+    desc  "update", "update ykcitool"
     def update()
       require 'actions/YKFastlaneExecute'
-      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykfastlane -a -x", "gem install ykfastlane", "")
+      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "gem install ykcitool", "")
       exit! code unless code == 0
     end
 
     desc "uninstall", "uninstall self"
     def uninstall()
       require 'actions/YKFastlaneExecute'
-      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykfastlane -a -x", "", "")
+      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "", "")
       exit! code unless code == 0
     end
 

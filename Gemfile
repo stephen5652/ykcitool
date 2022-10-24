@@ -2,8 +2,8 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in ykfastlane.gemspec
-gem 'ykfastlane', :path => './'
+# Specify your gem's dependencies in ykcitool.gemspec
+gem 'ykcitool', :path => './'
 
 group :debug do
   gem 'fastlane'

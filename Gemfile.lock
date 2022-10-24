@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ykfastlane (0.3.12)
+    ykcitool (0.3.13)
       git
       json
       openssl
@@ -473,7 +473,7 @@ DEPENDENCIES
   railties (= 6.0.0)
   ruby-debug-ide (= 0.7.3)
   thor
-  ykfastlane!
+  ykcitool!
 
 BUNDLED WITH
    2.3.23
