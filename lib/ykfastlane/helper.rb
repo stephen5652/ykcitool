@@ -40,7 +40,7 @@ module YKFastlane
     end
 
     def self.default_fast_file_remote()
-      url1 = "#{self.default_git_domain}/App/iOS/ykcitool.git"
+      url1 = "#{self.default_git_domain}/App/iOS/ykfastlane.git"
       url2 = "https://github.com/stephen5652/ykfastlane_scrip.git"
       "" "
       \033[0;32m#{url1}\e[0m or \033[0;32m#{url2}\e[0m
