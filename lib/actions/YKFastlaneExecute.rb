@@ -70,7 +70,7 @@ module YKFastlane
     def self.executeFastlaneLane(lane_name, optionHash)
       dict = {}
       dict.update(optionHash)
-      if dict[:wxwork_access_token].blank?
+      if optionHash[:wxwork_access_token].blank?
         wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
         dict.update({:wxwork_access_token => wxtoken})
       end
