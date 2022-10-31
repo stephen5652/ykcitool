@@ -80,7 +80,7 @@ module YKFastlane
       def execute_config_execute(options)
         require 'actions/certificate'
 
-        if options[:all_config] == true
+        if options[:all] == true
           self.sync_script_execute({})
           YKFastlane::Certificate.new().sync_git_execute({})
         else
