@@ -131,7 +131,7 @@ module YKFastlane
       exit(code) unless code == 0
     end
 
-    defs "clean_product_dir", "clean product path"
+    desc "clean_product_dir", "clean product path"
     def clean_product_dir()
       YKFastlaneExecute.executeFastlaneLane("clean_product_directory", options)
     end
