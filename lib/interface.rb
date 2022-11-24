@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require 'ykfastlane/version'
+require 'ykcitool/version'
 
 require 'actions/YKFastlaneExecute'
 require 'actions/archive'
 require 'actions/pod'
 require 'actions/init'
 require 'actions/certificate'
+require 'actions/ykservice_http'
 require 'thor'
 
 module YKFastlane
@@ -39,6 +40,9 @@ module YKFastlane
 
     desc "certificate", "manager ios certificate & profile files"
     subcommand "certificate", YKFastlane::Certificate
+
+    desc "service_http", "http service"
+    subcommand "service_http", YKFastlane::YKServiceHttp
 
     desc  "update", "update ykcitool"
     def update()

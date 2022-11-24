@@ -1,7 +1,7 @@
 require "actions/YKFastlaneExecute"
-require 'ykfastlane/version'
-require 'ykfastlane/tools'
-require 'ykfastlane/helper'
+require 'ykcitool/version'
+require 'ykcitool/tools'
+require 'ykcitool/helper'
 require 'actions/archiveHelper'
 module YKFastlane
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/ykfastlane/version"
+require_relative "lib/ykcitool/version"
 
 Gem::Specification.new do |spec|
   spec.name = "ykcitool"
@@ -41,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json'
   spec.add_dependency 'plist'
   spec.add_dependency 'public_suffix', '< 5.0.0'
+  spec.add_dependency 'webrick'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

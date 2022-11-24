@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ykcitool (0.4.5)
+    ykcitool (0.4.9)
       git
       json
       openssl
@@ -10,6 +10,7 @@ PATH
       rails
       security
       thor
+      webrick
       yaml
 
 GEM

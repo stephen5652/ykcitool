@@ -1,6 +1,6 @@
-require 'ykfastlane/version'
-require 'ykfastlane/tools'
-require 'ykfastlane/helper'
+require 'ykcitool/version'
+require 'ykcitool/tools'
+require 'ykcitool/helper'
 module YKFastlane
 
   module ArchiveHelper

@@ -1,7 +1,7 @@
 require 'rails'
 require 'thor'
 
-require "ykfastlane/helper"
+require "ykcitool/helper"
 
 module YKFastlane
 
