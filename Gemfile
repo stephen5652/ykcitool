@@ -19,14 +19,14 @@ group :debug do
   gem 'bundler'
   #
   gem 'thor'
-  gem 'railties', '6.0.0'
+  gem 'railties'
 
   #gem 'fastlane-plugin-firim'
 end
 
 group :development do
   gem 'thor'
-  gem 'railties', '6.0.0'
+  gem 'railties'
 
   #gem 'fastlane-plugin-firim'
 end

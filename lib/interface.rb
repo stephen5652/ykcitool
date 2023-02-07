@@ -6,6 +6,7 @@ require 'actions/YKFastlaneExecute'
 require 'actions/archive'
 require 'actions/pod'
 require 'actions/init'
+require 'createPod/module'
 require 'actions/certificate'
 require 'thor'
 
@@ -16,6 +17,7 @@ module YKFastlane
     include YKFastlane::Helper
 
     class_option :verbose, :type => :boolean
+
     def self.exit_on_failure?
       true
     end
@@ -40,7 +42,11 @@ module YKFastlane
     desc "certificate", "manager ios certificate & profile files"
     subcommand "certificate", YKFastlane::Certificate
 
-    desc  "update", "update ykcitool"
+    desc "module", "create module"
+    subcommand "module", YKFastlane::Module
+
+    desc "update", "update ykcitool"
+
     def update()
       require 'actions/YKFastlaneExecute'
       code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "gem install ykcitool", "")
@@ -48,6 +54,7 @@ module YKFastlane
     end
 
     desc "uninstall", "uninstall self"
+
     def uninstall()
       require 'actions/YKFastlaneExecute'
       code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "", "")
