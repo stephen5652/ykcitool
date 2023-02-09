@@ -5,8 +5,8 @@ require 'json'
 require 'actions/YKFastlaneExecute'
 require 'actions/archiveHelper'
 
-module YKFastlane
-  class Init < YKFastlane::SubCommandBase
+module YKCitool
+  class Init < YKCitool::SubCommandBase
     include Helper
 
     desc "execute_configs", "execute configs that user defines"
@@ -34,7 +34,7 @@ module YKFastlane
 
     option :wx_access_token, :aliases => :t, :type => :string, :desc => "enterprise wechat robot token"
 
-    option :profile_remote_url, :aliases => :r, :require => false, :type => :string, :desc => "profile & certificate git remote url, example:#{YKFastlane::Helper.default_certificate_git_remote}"
+    option :profile_remote_url, :aliases => :r, :require => false, :type => :string, :desc => "profile & certificate git remote url, example:#{YKCitool::Helper.default_certificate_git_remote}"
 
     option :pgyer_user, :aliases => :u, :type => :string, :required => false, :desc => 'pgyer 平台 user'
     option :pgyer_api, :aliases => :a, :type => :string, :required => false, :desc => 'pgyer 平台 api, 配置链接: \033[0;32m https://appleid.apple.com/account/manage \e[0m'
@@ -49,9 +49,9 @@ module YKFastlane
       require 'actions/archive'
       puts("all_config:#{options}")
 
-      YKFastlane::Init.new().config_execute(options)
-      YKFastlane::Archive.new().platform_edit_user_execute(options)
-      YKFastlane::Certificate.new().sync_git_execute(options) unless options[:profile_remote_url].blank?
+      YKCitool::Init.new().config_execute(options)
+      YKCitool::Archive.new().platform_edit_user_execute(options)
+      YKCitool::Certificate.new().sync_git_execute(options) unless options[:profile_remote_url].blank?
     end
 
     desc 'define_fast_execute_path', "指定fastlane文件的路径，此处是为了调试fastlane脚本"
@@ -69,11 +69,11 @@ module YKFastlane
       require 'actions/certificate'
       require 'actions/archive'
 
-      YKFastlane::Certificate.new().list_details_execute()
+      YKCitool::Certificate.new().list_details_execute()
 
-      YKFastlane::Archive.new().list_platform_user_execute()
+      YKCitool::Archive.new().list_platform_user_execute()
       Helper.display_config_yml
-      YKFastlane::Archive.new().list_profiles_execute()
+      YKCitool::Archive.new().list_profiles_execute()
     end
 
     no_commands {
@@ -82,13 +82,13 @@ module YKFastlane
 
         if options[:all] == true
           self.sync_script_execute({})
-          YKFastlane::Certificate.new().sync_git_execute({})
+          YKCitool::Certificate.new().sync_git_execute({})
         else
           if options[:script] == true
             self.sync_script_execute({})
           end
           if options[:profile] == true
-            YKFastlane::Certificate.new().sync_git_execute({})
+            YKCitool::Certificate.new().sync_git_execute({})
           end
         end
       end
@@ -105,7 +105,7 @@ module YKFastlane
         p_temp = p + "_temp"
         FileUtils.remove_dir(p_temp, force: true)
 
-        cloneResult = YKFastlane::Tools.clone_git_repository(fastfile_remote, p_temp)
+        cloneResult = YKCitool::Tools.clone_git_repository(fastfile_remote, p_temp)
         if cloneResult != 0
           exit cloneResult
         end
@@ -135,7 +135,7 @@ module YKFastlane
         end
 
         Helper.update_config('', Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
-        YKFastlane::ArchiveHelper.update_archive_map(Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
+        YKCitool::ArchiveHelper.update_archive_map(Helper::K_wx_access_token, options[:wx_access_token]) unless options[:wx_access_token].blank?
         Helper.display_config_yml
       end
     }

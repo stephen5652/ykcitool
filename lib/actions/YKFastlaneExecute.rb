@@ -3,7 +3,7 @@ require 'thor'
 
 require "ykfastlane/helper"
 
-module YKFastlane
+module YKCitool
 
   class SubCommandBase < Thor
     class_option :verbose, :type => :boolean
@@ -71,7 +71,7 @@ module YKFastlane
       dict = {}
       dict.update(optionHash)
       if optionHash[:wxwork_access_token].blank?
-        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
+        wxtoken = YKCitool::Helper.load_config_value(YKCitool::Helper::K_wx_access_token)
         dict.update({:wxwork_access_token => wxtoken})
       end
 
@@ -79,7 +79,7 @@ module YKFastlane
       command = "fastlane #{lane_name} #{option_str}" unless option_str.blank?
 
       command_pre = "export LANG=en_US.UTF-8 && export LANGUAGE=en_US.UTF-8 && export LC_ALL=en_US.UTF-8 && which ruby"
-      command_pre << " && cd #{YKFastlane::Helper.fastlane_script()}"
+      command_pre << " && cd #{YKCitool::Helper.fastlane_script()}"
 
       executeCommand(command_pre, command, lane_name)
     end

@@ -1,7 +1,7 @@
 require 'yaml'
 require 'json'
 
-module YKFastlane
+module YKCitool
 
   module Tools
     def self.green(string)

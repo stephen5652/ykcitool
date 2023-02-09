@@ -1,12 +1,12 @@
 require 'ykfastlane/version'
 require 'ykfastlane/tools'
 require 'ykfastlane/helper'
-module YKFastlane
+module YKCitool
 
   module ArchiveHelper
     YKARCHIVE_PRODUCT_PATH = File.expand_path(File.join(Dir.home, "iosYeahArchive"))
 
-    YKARCHIVE_ENV_PATH = File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'archive_config', 'archive_config.yml')
+    YKARCHIVE_ENV_PATH = File.join(YKCitool::YKFASTLANE_ENV_PATH, 'archive_config', 'archive_config.yml')
 
     K_archiveEnv_config_tf = :test_flight
     K_archiveEnv_tf_account = :user_name
@@ -20,20 +20,20 @@ module YKFastlane
     K_archiveEnv_pgyer_api = :pgyer_api
 
     def self.update_archive_map(key, value)
-      YKFastlane::Tools.update_yml("", YKARCHIVE_ENV_PATH, key, value)
+      YKCitool::Tools.update_yml("", YKARCHIVE_ENV_PATH, key, value)
     end
 
     def update_archive_map(key, value)
-      YKFastlane::Tools.update_yml("", YKARCHIVE_ENV_PATH, key, value)
+      YKCitool::Tools.update_yml("", YKARCHIVE_ENV_PATH, key, value)
     end
 
     def load_archive_config_dict(platform_name)
-      dict = YKFastlane::Tools.load_yml_value(YKARCHIVE_ENV_PATH, platform_name)
+      dict = YKCitool::Tools.load_yml_value(YKARCHIVE_ENV_PATH, platform_name)
       return dict == nil ? {} : dict
     end
 
     def list_user_map()
-      YKFastlane::Tools.display_yml(YKARCHIVE_ENV_PATH)
+      YKCitool::Tools.display_yml(YKARCHIVE_ENV_PATH)
     end
 
   end

@@ -2,15 +2,16 @@
 require 'ykfastlane/helper'
 require 'rails'
 
-module YKFastlane
-  class Module < YKFastlane::SubCommandBase
+module YKCitool
+  class Module < YKCitool::SubCommandBase
     include Helper
 
-    desc "simple", "create simple module without demo"
-    option :name, :require => true, :type => :string, :aliases => :n, :desc => 'module name'
-    option :path, :require => false, :type => :string, :aliases => :p, :desc => 'module path'
-    option :language, :require => false, :type => :string, :aliases => :l, :desc => 'module language objc/swift'
+    desc "standard", "创建标准组件"
+    option :name, :required => true, :type => :string, :aliases => :n, :desc => 'module name'
+    option :language, :required => true, :type => :string, :aliases => :l, :desc => 'module language objc/swift'
+    option :path, :required => false, :type => :string, :aliases => :p, :desc => 'module path'
+    def standard()
 
-    def simple() end
+    end
   end
 end

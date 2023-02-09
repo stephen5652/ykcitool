@@ -10,11 +10,11 @@ require 'createPod/module'
 require 'actions/certificate'
 require 'thor'
 
-module YKFastlane
+module YKCitool
   class Interface < Thor
     include Thor::Actions
     require_relative 'actions/YKFastlaneExecute'
-    include YKFastlane::Helper
+    include YKCitool::Helper
 
     class_option :verbose, :type => :boolean
 
@@ -26,30 +26,30 @@ module YKFastlane
     #
     # def lanes()
     #   puts "lanes"
-    #   code = YKFastlane::YKFastlaneExecute.executeFastlaneLane("lanes", options)
+    #   code = YKCitool::YKFastlaneExecute.executeFastlaneLane("lanes", options)
     #   exit(code)
     # end
 
     desc "archive", "archive functions"
-    subcommand "archive", YKFastlane::Archive
+    subcommand "archive", YKCitool::Archive
 
     # desc "pod", "cocoapods functions"
-    # subcommand "pod", YKFastlane::Pod
+    # subcommand "pod", YKCitool::Pod
 
     desc "init", "init ykcitool"
-    subcommand "init", YKFastlane::Init
+    subcommand "init", YKCitool::Init
 
     desc "certificate", "manager ios certificate & profile files"
-    subcommand "certificate", YKFastlane::Certificate
+    subcommand "certificate", YKCitool::Certificate
 
     desc "module", "create module"
-    subcommand "module", YKFastlane::Module
+    subcommand "module", YKCitool::Module
 
     desc "update", "update ykcitool"
 
     def update()
       require 'actions/YKFastlaneExecute'
-      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "gem install ykcitool", "")
+      code = YKCitool::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "gem install ykcitool", "")
       exit! code unless code == 0
     end
 
@@ -57,7 +57,7 @@ module YKFastlane
 
     def uninstall()
       require 'actions/YKFastlaneExecute'
-      code = YKFastlane::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "", "")
+      code = YKCitool::YKFastlaneExecute.executeCommand("gem uninstall ykcitool -a -x", "", "")
       exit! code unless code == 0
     end
 

@@ -2,16 +2,16 @@ require 'yaml'
 require 'json'
 require 'ykfastlane/tools'
 require 'ykfastlane/version'
-module YKFastlane
+module YKCitool
   module Helper
-    include YKFastlane::Tools
+    include YKCitool::Tools
     '' '脚本当前工作路径' ''
     YKRUNING_PATH = File.expand_path(Dir.pwd)
     '' '配置文件放置路径' ''
-    YKCONFIG_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'evnConfig.yml'))
+    YKCONFIG_PATH = File.expand_path(File.join(YKCitool::YKFASTLANE_ENV_PATH, 'evnConfig.yml'))
 
     '' 'fastlane脚本放置路径' ''
-    YKFastlne_SCRIPT_PATH = File.expand_path(File.join(YKFastlane::YKFASTLANE_ENV_PATH, 'ykfastlane_script'))
+    YKFastlne_SCRIPT_PATH = File.expand_path(File.join(YKCitool::YKFASTLANE_ENV_PATH, 'ykfastlane_script'))
 
     def self.load_config_yml()
       Tools.load_yml(Helper::YKCONFIG_PATH)

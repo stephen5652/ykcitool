@@ -2,8 +2,8 @@ require 'actions/YKFastlaneExecute'
 require 'ykfastlane/helper'
 require 'rails'
 
-module YKFastlane
-  class Pod < YKFastlane::SubCommandBase
+module YKCitool
+  class Pod < YKCitool::SubCommandBase
     desc 'github_transfer', '迁移github三方库到移开gitlab.'
     long_desc <<-LONGDESC
     1. 需要在移开gitlab创建一个同名的git仓库.
@@ -18,11 +18,11 @@ module YKFastlane
     def github_transfer()
       puts "github_pod_transfer"
       if options[:wxwork_access_token].blank?
-        wxtoken = YKFastlane::Helper.load_config_value(YKFastlane::Helper::K_wx_access_token)
+        wxtoken = YKCitool::Helper.load_config_value(YKCitool::Helper::K_wx_access_token)
         options[:wxwork_access_token] = wxtoken unless wxtoken.blank?
       end
 
-      code = Ykfastlane::YKFastlaneExecute.executeFastlaneLane("github_pod_transfer", options)
+      code = YKCitool::YKFastlaneExecute.executeFastlaneLane("github_pod_transfer", options)
       exit(code)
     end
   end

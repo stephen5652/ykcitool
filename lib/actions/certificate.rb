@@ -3,8 +3,8 @@ require 'ykfastlane/helper'
 require 'thor'
 require 'openssl'
 
-module YKFastlane
-  class Certificate < YKFastlane::SubCommandBase
+module YKCitool
+  class Certificate < YKCitool::SubCommandBase
 
     desc "sync_apple_profile", "sync and install mobile provision file from apple developer service"
     option :user_name, :require => true, :type => :string, :aliases => :u, :desc => 'apple account'

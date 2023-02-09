@@ -1,7 +1,7 @@
 require 'actions/YKFastlaneExecute'
 
-module YKFastlane
-  class Git < YKFastlane::SubCommandBase
+module YKCitool
+  class Git < YKCitool::SubCommandBase
     desc "analysis_commit", "analysis git commit"
     option :path, :require => false, :type => :string, :aliases => :p, :desc => 'the path should be analysised'
 

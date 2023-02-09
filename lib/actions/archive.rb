@@ -3,15 +3,15 @@ require 'ykfastlane/version'
 require 'ykfastlane/tools'
 require 'ykfastlane/helper'
 require 'actions/archiveHelper'
-module YKFastlane
+module YKCitool
 
-  class Archive < YKFastlane::SubCommandBase
-    include YKFastlane::ArchiveHelper
+  class Archive < YKCitool::SubCommandBase
+    include YKCitool::ArchiveHelper
 
     desc "display_product_path", "display archive output path"
 
     def display_product_path()
-      YKFastlane::Tools.UI(YKARCHIVE_PRODUCT_PATH)
+      YKCitool::Tools.UI(YKARCHIVE_PRODUCT_PATH)
     end
 
     no_commands {
@@ -22,7 +22,7 @@ module YKFastlane
             K_archiveEnv_pgyer_api => options[:pgyer_api],
             K_archiveEnv_pgyer_user => options[:pgyer_user]
           }
-          self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_pgyer, pgyerinfo)
+          self.update_archive_map(YKCitool::ArchiveHelper::K_archiveEnv_config_pgyer, pgyerinfo)
           puts "archive update pgyer info success"
         end
 
@@ -30,7 +30,7 @@ module YKFastlane
           fir_info = {
             K_archiveEnv_firApiToken => options[:fir_api_token]
           }
-          self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_fir, fir_info)
+          self.update_archive_map(YKCitool::ArchiveHelper::K_archiveEnv_config_fir, fir_info)
           puts "archive update fir info success"
         end
 
@@ -39,7 +39,7 @@ module YKFastlane
             K_archiveEnv_tf_account => options[:apple_account],
             K_archiveEnv_tf_password => options[:apple_password]
           }
-          self.update_archive_map(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf, tf_info)
+          self.update_archive_map(YKCitool::ArchiveHelper::K_archiveEnv_config_tf, tf_info)
           puts "archive update tf info success"
         end
       end
@@ -55,7 +55,7 @@ module YKFastlane
     def upload_tf()
       puts "upload_tf"
       if options[:user_name].blank? || options[:pass_word].blank?
-        apple_info = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf)
+        apple_info = self.load_archive_config_dict(YKCitool::ArchiveHelper::K_archiveEnv_config_tf)
         options.update(apple_dict)
       end
 
@@ -77,7 +77,7 @@ module YKFastlane
     def tf()
       puts "archive_tf"
       if options[:user_name].blank? || options[:pass_word].blank?
-        apple_dict = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_tf)
+        apple_dict = self.load_archive_config_dict(YKCitool::ArchiveHelper::K_archiveEnv_config_tf)
         if apple_dict != nil && apple_dict.blank?() == false
           options.update(apple_dict)
         end
@@ -102,7 +102,7 @@ module YKFastlane
       puts "archive_pgyer"
 
       if options[:pgyer_user].blank? || options[:pgyer_api].blank?
-        dict = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_pgyer)
+        dict = self.load_archive_config_dict(YKCitool::ArchiveHelper::K_archiveEnv_config_pgyer)
         options.update(dict)
       end
 
@@ -123,7 +123,7 @@ module YKFastlane
     def fir()
       puts "archive_fir"
       if options[:fir_api_token].blank?
-        dict = self.load_archive_config_dict(YKFastlane::ArchiveHelper::K_archiveEnv_config_fir)
+        dict = self.load_archive_config_dict(YKCitool::ArchiveHelper::K_archiveEnv_config_fir)
         options.update(dict)
       end
 
