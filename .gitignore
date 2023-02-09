@@ -15,3 +15,5 @@ vendor
 # debug projects dir
 debugProjects
 
+# macos
+.DS_Store
