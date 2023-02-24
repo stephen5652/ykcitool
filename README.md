@@ -14,7 +14,8 @@ iOS 通用打包工具的终端门户工具
 
 ## 扩展工具
 
-- 组件模版工具 cocoapods-ykutility 【[跳转](./组件规范/组件规范.md/#组件规范)】
+- 组件规范【[跳转](./ComponentStandard/ComponentStandard.md)】
+- 组件模板工具 cocoapods-ykutility 【[跳转](https://rubygems.org/gems/cocoapods-ykutility)】
 
 ## Installation
 
