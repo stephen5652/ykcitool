@@ -2,7 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/组件规范/DebugPodDir/YKInternationLanguage" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/组件规范/DebugPodDir/YKPodTestCreate" vcs="Git" />
   </component>
 </project>

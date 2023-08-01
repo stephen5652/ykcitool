@@ -4,7 +4,7 @@ require_relative "lib/ykfastlane/version"
 
 Gem::Specification.new do |spec|
   spec.name = "ykcitool"
-  spec.version = YKFastlane::VERSION
+  spec.version = YKCitool::VERSION
   spec.authors = ["stephen.chen"]
   spec.email = ["stephen5652@126.com"]
 
