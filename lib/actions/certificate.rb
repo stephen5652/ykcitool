@@ -6,6 +6,11 @@ require 'openssl'
 module YKCitool
   class Certificate < YKCitool::SubCommandBase
 
+    desc "list_config", "List all certificate and profiles info"
+    def list_config()
+      self.list_details_execute()
+    end
+
     desc "sync_apple_profile", "sync and install mobile provision file from apple developer service"
     option :user_name, :require => true, :type => :string, :aliases => :u, :desc => 'apple account'
     option :password, :require => true, :type => :string, :aliases => :p, :desc => 'apple account password'
